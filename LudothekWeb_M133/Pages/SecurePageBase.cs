@@ -16,7 +16,7 @@ namespace LudothekAvecDB.Pages {
                 HttpContext.Current.Response.Redirect("/Account/Login.aspx");
             }
 
-            GameRepository = new GameRepository(Server.MapPath("Storage/games.json"));
+            GameRepository = new GameRepository();
             RentalRepository = new RentalRepository(Server.MapPath("Storage/rentals.json"));
         }
     }

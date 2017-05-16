@@ -35,14 +35,14 @@ namespace LudothekAvecDB {
                 List<Rental> rentals = RentalRepository.GetRentalsForUser(m_currentUser);
 
                 foreach (Rental rental in rentals) {
-                    Game gameByRental = GameRepository.ReadGamesFromFile().First(g => g.Id == rental.GameId);
+                    //Game gameByRental = GameRepository.ReadGamesFromFile().First(g => g.Id == rental.GameId);
 
-                    // write games to html, sort by availability
-                    if (rental.IsActive) {
-                        myActiveRentals.InnerHtml += RenderRental(gameByRental, rental, rental.IsActive);
-                    } else {
-                        myPastRentals.InnerHtml += RenderRental(gameByRental, rental, rental.IsActive);
-                    }
+                    //// write games to html, sort by availability
+                    //if (rental.IsActive) {
+                    //    myActiveRentals.InnerHtml += RenderRental(gameByRental, rental, rental.IsActive);
+                    //} else {
+                    //    myPastRentals.InnerHtml += RenderRental(gameByRental, rental, rental.IsActive);
+                    //}
 
                 }
             }

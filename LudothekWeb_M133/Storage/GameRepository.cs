@@ -2,60 +2,38 @@
 // SW Guideline: Technote Coding Guidelines Ver. 1.4
 
 using System.Collections.Generic;
-using System.IO;
 using System.Linq;
-using System.Text;
-using LudothekAvecDB.Models;
-using Newtonsoft.Json;
+using LudothekWeb_M133.Storage;
+using System;
 
 namespace LudothekAvecDB.Storage {
-    public class GameRepository {
-        #region Properties
+    public class GameRepository : RepositoryBase {
 
-        public string DataPath { get; set; }
-        
-        private List<Game> AllGames { get; set; }
 
-        #endregion
-
-        #region Constructor
-
-        public GameRepository(string storagePath) {
-            DataPath = storagePath;
-
-            // create file and insert data, because there is no way to add via web interface
-            if (!File.Exists(DataPath)) {
-                CreateSampleFile();
+        public List<Spiel> GetAllGames()
+        {
+            using (DbContext = new LudothekDbEntities())
+            {
+                return DbContext.Spiel.ToList();
             }
-
-            AllGames = ReadGamesFromFile();
         }
 
-        #endregion
-
-        #region Methodes
-
-        public void CreateSampleFile() {
-            List<Game> games = new List<Game> {
-                new Game {Id = 1, Name = "Rogue One", Price = 20.50},
-                new Game {Id = 2, Name = "Game", Price = 108.90},
-                new Game {Id = 3, Name = "Papier", Price = 9.90},
-                new Game {Id = 4, Name = "Cards Against Humanity", Price = 31.50},
-                new Game {Id = 5, Name = "Uno", Price = 5.30}
-            };
-            var json = JsonConvert.SerializeObject(games);
-            File.WriteAllText(DataPath, json, Encoding.Unicode);
+        public Spiel GetGame(Guid id)
+        {
+            using (DbContext = new LudothekDbEntities())
+            {
+                return DbContext.Spiel.Where(s => s.SpielKeyGUID == id).FirstOrDefault();
+            }  
         }
 
-        public List<Game> ReadGamesFromFile() {
-            var json = File.ReadAllText(DataPath);
-            return JsonConvert.DeserializeObject<List<Game>>(json);
-        }
 
-        public List<Game> AvailableGames() {
-            return AllGames;
+        public bool AddGame(Spiel spiel)
+        {
+            using(DbContext = new LudothekDbEntities())
+            {
+                DbContext.Spiel.Add(spiel);
+                return DbContext.SaveChanges() > 0;
+            }
         }
-
-        #endregion
     }
 }

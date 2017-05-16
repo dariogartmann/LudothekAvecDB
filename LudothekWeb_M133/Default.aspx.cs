@@ -8,6 +8,7 @@ using System.Linq;
 using System.Web;
 using LudothekAvecDB.Models;
 using LudothekAvecDB.Pages;
+using LudothekWeb_M133.Storage;
 
 namespace LudothekAvecDB {
     public partial class _Default : SecurePageBase {
@@ -18,32 +19,21 @@ namespace LudothekAvecDB {
             var gameId = Request.QueryString["gameId"];
 
             if (gameId != null) {
-                var selectedGame = GameRepository.ReadGamesFromFile().First(g => g.Id.ToString() == gameId);
-
-                if (selectedGame == null) {
-                    return;
-                }
-
-                if (RentalRepository.IsGameAvailable(selectedGame.Id)) {
-                    string username = HttpContext.Current.User.Identity.Name;
-                    RentalRepository.CreateRental(selectedGame.Id, username);
-                    Response.Redirect("~/MyRentals.aspx");
-                }
+                // was?
 
             } else {
-                foreach (Game game in GameRepository.ReadGamesFromFile()) {
-                    if (RentalRepository.IsGameAvailable(game.Id)) {
-                        gamesList.InnerHtml += RenderGame(game);
-                    }
+                List<Spiel> games = GameRepository.GetAllGames();
+                foreach (Spiel game in games) {
+                    gamesList.InnerHtml += RenderGame(game);
                 }
             }
         }
 
-        private static string RenderGame(Game game) {
+        private static string RenderGame(Spiel game) {
             return "<div class=\"col-md-3 game\">" +
                         $"<h3>{game.Name}</h3>" +
-                        $"<p>Price: CHF {game.Price}</p>" +
-                        $"<a class=\"btn btn-primary\" href=\"/Default.aspx?gameId={game.Id}\">Rent game!</a><hr/>" +
+                        $"<p>Ort: CHF {game.Ort}</p>" +
+                        $"<a class=\"btn btn-primary\" href=\"/Default.aspx?gameId={game.SpielKeyGUID}\">Rent game!</a><hr/>" +
                     "</div>";
         }
 

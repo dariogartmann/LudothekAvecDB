@@ -81,6 +81,8 @@
     <Reference Include="System.Data" />
     <Reference Include="System.Core" />
     <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.Security" />
     <Reference Include="System.Web.Extensions" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Drawing" />
@@ -245,12 +247,29 @@
     <Content Include="favicon.ico" />
     <Content Include="Global.asax" />
     <Content Include="Site.Master" />
+    <Content Include="Storage\LudothekDb.Context.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>LudothekDb.edmx</DependentUpon>
+      <LastGenOutput>LudothekDb.Context.cs</LastGenOutput>
+    </Content>
+    <Content Include="Storage\LudothekDb.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>LudothekDb.edmx</DependentUpon>
+      <LastGenOutput>LudothekDb.cs</LastGenOutput>
+    </Content>
     <Content Include="ViewSwitcher.ascx" />
     <Content Include="Web.config" />
     <Content Include="Bundle.config" />
     <Content Include="packages.config" />
     <Content Include="Scripts\jquery-1.10.2.min.map" />
     <Content Include="Site.Mobile.Master" />
+    <EntityDeploy Include="Storage\LudothekDb.edmx">
+      <Generator>EntityModelCodeGenerator</Generator>
+      <LastGenOutput>LudothekDb.Designer.cs</LastGenOutput>
+    </EntityDeploy>
+    <Content Include="Storage\LudothekDb.edmx.diagram">
+      <DependentUpon>LudothekDb.edmx</DependentUpon>
+    </Content>
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -380,6 +399,15 @@
     <Compile Include="Pages\SecurePageBase.cs">
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
+    <Compile Include="Storage\Ausleihe.cs">
+      <DependentUpon>LudothekDb.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Storage\Bestellung.cs">
+      <DependentUpon>LudothekDb.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Storage\Filiale.cs">
+      <DependentUpon>LudothekDb.tt</DependentUpon>
+    </Compile>
     <Compile Include="Storage\GameRepository.cs" />
     <Compile Include="Default.aspx.cs">
       <DependentUpon>Default.aspx</DependentUpon>
@@ -408,7 +436,44 @@
       <DependentUpon>Site.Mobile.Master</DependentUpon>
     </Compile>
     <Compile Include="Startup.cs" />
+    <Compile Include="Storage\Kunde.cs">
+      <DependentUpon>LudothekDb.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Storage\LudothekDb.Context.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>LudothekDb.Context.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Storage\LudothekDb.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>LudothekDb.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Storage\LudothekDb.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>LudothekDb.edmx</DependentUpon>
+    </Compile>
+    <Compile Include="Storage\Mitarbeiter.cs">
+      <DependentUpon>LudothekDb.tt</DependentUpon>
+    </Compile>
     <Compile Include="Storage\RentalRepository.cs" />
+    <Compile Include="Storage\RepositoryBase.cs" />
+    <Compile Include="Storage\Spiel.cs">
+      <DependentUpon>LudothekDb.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Storage\SpielBestellung.cs">
+      <DependentUpon>LudothekDb.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Storage\Tarifkategorie.cs">
+      <DependentUpon>LudothekDb.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Storage\Verband.cs">
+      <DependentUpon>LudothekDb.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Storage\Verlag.cs">
+      <DependentUpon>LudothekDb.tt</DependentUpon>
+    </Compile>
     <Compile Include="ViewSwitcher.ascx.cs">
       <DependentUpon>ViewSwitcher.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -419,6 +484,9 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
