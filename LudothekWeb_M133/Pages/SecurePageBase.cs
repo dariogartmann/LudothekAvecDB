@@ -3,9 +3,10 @@
 
 using System.Web;
 using System.Web.UI;
-using LudothekAvecDB.Storage;
+using LudothekAvecDB.Ludothek.Storage;
 
-namespace LudothekAvecDB.Pages {
+namespace LudothekAvecDB.Ludothek.App.Pages
+{
     public class SecurePageBase : Page {
         protected GameRepository GameRepository { get; }
         protected RentalRepository RentalRepository { get; }

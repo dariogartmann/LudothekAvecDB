@@ -13,8 +13,8 @@
     <ProjectTypeGuids>{349c5851-65df-11da-9384-00065b846f21};{fae04ec0-301f-11d3-bf4b-00c04f79efbc}</ProjectTypeGuids>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>LudothekWeb_M133</RootNamespace>
-    <AssemblyName>LudothekWeb_M133</AssemblyName>
+    <RootNamespace>Ludothek.App</RootNamespace>
+    <AssemblyName>Ludothek.App</AssemblyName>
     <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
     <UseIISExpress>true</UseIISExpress>
     <IISExpressSSLPort />
@@ -247,29 +247,12 @@
     <Content Include="favicon.ico" />
     <Content Include="Global.asax" />
     <Content Include="Site.Master" />
-    <Content Include="Storage\LudothekDb.Context.tt">
-      <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>LudothekDb.edmx</DependentUpon>
-      <LastGenOutput>LudothekDb.Context.cs</LastGenOutput>
-    </Content>
-    <Content Include="Storage\LudothekDb.tt">
-      <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>LudothekDb.edmx</DependentUpon>
-      <LastGenOutput>LudothekDb.cs</LastGenOutput>
-    </Content>
     <Content Include="ViewSwitcher.ascx" />
     <Content Include="Web.config" />
     <Content Include="Bundle.config" />
     <Content Include="packages.config" />
     <Content Include="Scripts\jquery-1.10.2.min.map" />
     <Content Include="Site.Mobile.Master" />
-    <EntityDeploy Include="Storage\LudothekDb.edmx">
-      <Generator>EntityModelCodeGenerator</Generator>
-      <LastGenOutput>LudothekDb.Designer.cs</LastGenOutput>
-    </EntityDeploy>
-    <Content Include="Storage\LudothekDb.edmx.diagram">
-      <DependentUpon>LudothekDb.edmx</DependentUpon>
-    </Content>
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -394,21 +377,9 @@
     <Compile Include="MyRentals.aspx.designer.cs">
       <DependentUpon>MyRentals.aspx</DependentUpon>
     </Compile>
-    <Compile Include="Models\Game.cs" />
-    <Compile Include="Models\Rental.cs" />
     <Compile Include="Pages\SecurePageBase.cs">
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="Storage\Ausleihe.cs">
-      <DependentUpon>LudothekDb.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Storage\Bestellung.cs">
-      <DependentUpon>LudothekDb.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Storage\Filiale.cs">
-      <DependentUpon>LudothekDb.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Storage\GameRepository.cs" />
     <Compile Include="Default.aspx.cs">
       <DependentUpon>Default.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -436,44 +407,6 @@
       <DependentUpon>Site.Mobile.Master</DependentUpon>
     </Compile>
     <Compile Include="Startup.cs" />
-    <Compile Include="Storage\Kunde.cs">
-      <DependentUpon>LudothekDb.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Storage\LudothekDb.Context.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>LudothekDb.Context.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Storage\LudothekDb.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>LudothekDb.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Storage\LudothekDb.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>LudothekDb.edmx</DependentUpon>
-    </Compile>
-    <Compile Include="Storage\Mitarbeiter.cs">
-      <DependentUpon>LudothekDb.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Storage\RentalRepository.cs" />
-    <Compile Include="Storage\RepositoryBase.cs" />
-    <Compile Include="Storage\Spiel.cs">
-      <DependentUpon>LudothekDb.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Storage\SpielBestellung.cs">
-      <DependentUpon>LudothekDb.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Storage\Tarifkategorie.cs">
-      <DependentUpon>LudothekDb.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Storage\Verband.cs">
-      <DependentUpon>LudothekDb.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Storage\Verlag.cs">
-      <DependentUpon>LudothekDb.tt</DependentUpon>
-    </Compile>
     <Compile Include="ViewSwitcher.ascx.cs">
       <DependentUpon>ViewSwitcher.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>

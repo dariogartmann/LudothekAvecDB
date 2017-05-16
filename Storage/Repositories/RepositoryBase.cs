@@ -1,4 +1,5 @@
-﻿namespace LudothekWeb_M133.Storage
+﻿
+namespace Ludothek.Storage.Repositories
 {
     /// <summary>
     /// base class for repositories
