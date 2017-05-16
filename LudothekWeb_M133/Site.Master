@@ -75,7 +75,7 @@
             </asp:ContentPlaceHolder>
             <hr />
             <footer>
-                <p>&copy; <%: DateTime.Now.Year %> - Dario Gartmann</p>
+                <p>&copy; <%: DateTime.Now.Year %> - MaMiDa GmbH</p>
             </footer>
         </div>
     </form>
