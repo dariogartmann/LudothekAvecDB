@@ -1,6 +1,13 @@
-# M133-LudothekWeb
-This project is part of the final for M133 at GBS SG.
+# Modul 151 - Ludothek 
+## Description
+This project is part of the final for M151 at GBS SG.
+The goal is to implement a web-based "Ludothek". The database used in this project has been implemented in M152.
 
-# Requirements
-- Must be implemented as a ASP.NET Webforms application.
-- ToDo: Expand documentation
+## Installation
+- Clone solution
+- Create local database using the script "db-script.sql"
+- Go!
+
+# ToDo
+- Fix Namespaces and EF Model
+- Documentation
