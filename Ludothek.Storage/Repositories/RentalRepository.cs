@@ -8,7 +8,7 @@ namespace Ludothek.Storage.Repositories
 
         public List<Ausleihe> GetAllRentals()
         {
-            using (DbContext = new LudothekDbEntities())
+            using (DbContext = new LudothekEntities())
             {
                 return DbContext.Ausleihe.ToList();
             }

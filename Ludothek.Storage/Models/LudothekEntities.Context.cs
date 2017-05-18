@@ -13,10 +13,10 @@ namespace Ludothek.Storage.Models
     using System.Data.Entity;
     using System.Data.Entity.Infrastructure;
     
-    public partial class LudothekDbEntities : DbContext
+    public partial class LudothekEntities : DbContext
     {
-        public LudothekDbEntities()
-            : base("name=LudothekDbEntities")
+        public LudothekEntities()
+            : base("name=LudothekEntities")
         {
         }
     

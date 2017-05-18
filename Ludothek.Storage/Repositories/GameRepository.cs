@@ -15,7 +15,7 @@ namespace Ludothek.Storage.Repositories {
         /// <returns>return a list of all games</returns>
         public List<Spiel> GetAllGames()
         {
-            using (DbContext = new LudothekDbEntities())
+            using (DbContext = new LudothekEntities())
             {
                 return DbContext.Spiel.ToList();
             }
@@ -28,7 +28,7 @@ namespace Ludothek.Storage.Repositories {
         /// <returns>a game</returns>
         public Spiel GetGame(Guid id)
         {
-            using (DbContext = new LudothekDbEntities())
+            using (DbContext = new LudothekEntities())
             {
                 return DbContext.Spiel.FirstOrDefault(s => s.SpielKeyGUID == id);
             }
@@ -41,7 +41,7 @@ namespace Ludothek.Storage.Repositories {
         /// <returns>true if successful</returns>
         public bool AddGame(Spiel spiel)
         {
-            using (DbContext = new LudothekDbEntities())
+            using (DbContext = new LudothekEntities())
             {
                 DbContext.Spiel.Add(spiel);
                 return DbContext.SaveChanges() > 0;

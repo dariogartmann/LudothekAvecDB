@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="Ludothek.Storage.Models.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+      <Schema Namespace="LudothekDbModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="Ausleihe">
           <Key>
             <PropertyRef Name="AusleiheKeyGUID" />
@@ -281,7 +281,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <EntityContainer Name="LudothekStorageModelsStoreContainer">
+        <EntityContainer Name="LudothekDbModelStoreContainer">
           <EntitySet Name="Ausleihe" EntityType="Self.Ausleihe" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Bestellung" EntityType="Self.Bestellung" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Filiale" EntityType="Self.Filiale" Schema="dbo" store:Type="Tables" />
@@ -353,7 +353,7 @@
     </edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
-      <Schema Namespace="Ludothek.Storage.Models" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+      <Schema Namespace="LudothekDbModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
         <EntityType Name="Ausleihe">
           <Key>
             <PropertyRef Name="AusleiheKeyGUID" />
@@ -658,7 +658,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <EntityContainer Name="LudothekDbEntities" annotation:LazyLoadingEnabled="true">
+        <EntityContainer Name="LudothekEntities" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="Ausleihe" EntityType="Self.Ausleihe" />
           <EntitySet Name="Bestellung" EntityType="Self.Bestellung" />
           <EntitySet Name="Filiale" EntityType="Self.Filiale" />
@@ -731,9 +731,9 @@
     <!-- C-S mapping content -->
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
-        <EntityContainerMapping StorageEntityContainer="LudothekStorageModelsStoreContainer" CdmEntityContainer="LudothekDbEntities">
+        <EntityContainerMapping StorageEntityContainer="LudothekDbModelStoreContainer" CdmEntityContainer="LudothekEntities">
           <EntitySetMapping Name="Ausleihe">
-            <EntityTypeMapping TypeName="Ludothek.Storage.Models.Ausleihe">
+            <EntityTypeMapping TypeName="LudothekDbModel.Ausleihe">
               <MappingFragment StoreEntitySet="Ausleihe">
                 <ScalarProperty Name="AusleiheKeyGUID" ColumnName="AusleiheKeyGUID" />
                 <ScalarProperty Name="Startdatum" ColumnName="Startdatum" />
@@ -746,7 +746,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Bestellung">
-            <EntityTypeMapping TypeName="Ludothek.Storage.Models.Bestellung">
+            <EntityTypeMapping TypeName="LudothekDbModel.Bestellung">
               <MappingFragment StoreEntitySet="Bestellung">
                 <ScalarProperty Name="Referenznummer" ColumnName="Referenznummer" />
                 <ScalarProperty Name="Datum" ColumnName="Datum" />
@@ -757,7 +757,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Filiale">
-            <EntityTypeMapping TypeName="Ludothek.Storage.Models.Filiale">
+            <EntityTypeMapping TypeName="LudothekDbModel.Filiale">
               <MappingFragment StoreEntitySet="Filiale">
                 <ScalarProperty Name="FilialKeyGUID" ColumnName="FilialKeyGUID" />
                 <ScalarProperty Name="Vereinsname" ColumnName="Vereinsname" />
@@ -769,7 +769,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Kunde">
-            <EntityTypeMapping TypeName="Ludothek.Storage.Models.Kunde">
+            <EntityTypeMapping TypeName="LudothekDbModel.Kunde">
               <MappingFragment StoreEntitySet="Kunde">
                 <ScalarProperty Name="KundenKeyGUID" ColumnName="KundenKeyGUID" />
                 <ScalarProperty Name="Vorname" ColumnName="Vorname" />
@@ -784,7 +784,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Mitarbeiter">
-            <EntityTypeMapping TypeName="Ludothek.Storage.Models.Mitarbeiter">
+            <EntityTypeMapping TypeName="LudothekDbModel.Mitarbeiter">
               <MappingFragment StoreEntitySet="Mitarbeiter">
                 <ScalarProperty Name="AHVNummer" ColumnName="AHVNummer" />
                 <ScalarProperty Name="Vorname" ColumnName="Vorname" />
@@ -801,7 +801,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Spiel">
-            <EntityTypeMapping TypeName="Ludothek.Storage.Models.Spiel">
+            <EntityTypeMapping TypeName="LudothekDbModel.Spiel">
               <MappingFragment StoreEntitySet="Spiel">
                 <ScalarProperty Name="SpielKeyGUID" ColumnName="SpielKeyGUID" />
                 <ScalarProperty Name="EANNummer" ColumnName="EANNummer" />
@@ -813,7 +813,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="SpielBestellung">
-            <EntityTypeMapping TypeName="Ludothek.Storage.Models.SpielBestellung">
+            <EntityTypeMapping TypeName="LudothekDbModel.SpielBestellung">
               <MappingFragment StoreEntitySet="SpielBestellung">
                 <ScalarProperty Name="SpielBestellungKeyGUID" ColumnName="SpielBestellungKeyGUID" />
                 <ScalarProperty Name="FK_Bestellung" ColumnName="FK_Bestellung" />
@@ -822,7 +822,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Tarifkategorie">
-            <EntityTypeMapping TypeName="Ludothek.Storage.Models.Tarifkategorie">
+            <EntityTypeMapping TypeName="LudothekDbModel.Tarifkategorie">
               <MappingFragment StoreEntitySet="Tarifkategorie">
                 <ScalarProperty Name="TarifkategorieKeyGUID" ColumnName="TarifkategorieKeyGUID" />
                 <ScalarProperty Name="Bezeichnung" ColumnName="Bezeichnung" />
@@ -831,7 +831,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Verband">
-            <EntityTypeMapping TypeName="Ludothek.Storage.Models.Verband">
+            <EntityTypeMapping TypeName="LudothekDbModel.Verband">
               <MappingFragment StoreEntitySet="Verband">
                 <ScalarProperty Name="VerbandKeyGUID" ColumnName="VerbandKeyGUID" />
                 <ScalarProperty Name="Name" ColumnName="Name" />
@@ -840,7 +840,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Verlag">
-            <EntityTypeMapping TypeName="Ludothek.Storage.Models.Verlag">
+            <EntityTypeMapping TypeName="LudothekDbModel.Verlag">
               <MappingFragment StoreEntitySet="Verlag">
                 <ScalarProperty Name="VerlagKeyGUID" ColumnName="VerlagKeyGUID" />
                 <ScalarProperty Name="Name" ColumnName="Name" />

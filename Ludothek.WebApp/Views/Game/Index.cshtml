@@ -1,0 +1,17 @@
+﻿@using Ludothek.Storage.Models
+@model Ludothek.WebApp.Models.Game.GameListViewModel
+@{
+    ViewBag.Title = "All Games";
+}
+
+<h2>All Games</h2>
+
+@foreach(Spiel game in Model.Games)
+{
+    <li>
+        <p>@game.Name</p>
+        <span>@game.SpielKeyGUID</span>
+    </li>
+}
+
+

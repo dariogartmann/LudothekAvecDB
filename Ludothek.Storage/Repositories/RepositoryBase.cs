@@ -3,10 +3,10 @@
 namespace Ludothek.Storage.Repositories
 {
     /// <summary>
-    /// base class for repositories
+    /// base class for repositories, containing the dbcontext from EF
     /// </summary>
     public abstract class RepositoryBase
     {
-        public LudothekDbEntities DbContext;
+        public LudothekEntities DbContext;
     }
 }
