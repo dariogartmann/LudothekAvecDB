@@ -1,6 +1,6 @@
 ﻿using System.Web.Mvc;
 
-namespace Ludothek.WebApp.Controllers
+namespace Ludothek.App.Controllers
 {
     public class RentalController : Controller
     {

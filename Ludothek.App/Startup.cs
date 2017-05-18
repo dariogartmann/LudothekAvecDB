@@ -1,8 +1,8 @@
 ﻿using Microsoft.Owin;
 using Owin;
 
-[assembly: OwinStartupAttribute(typeof(Ludothek.WebApp.Startup))]
-namespace Ludothek.WebApp
+[assembly: OwinStartup(typeof(Ludothek.App.Startup))]
+namespace Ludothek.App
 {
     public partial class Startup
     {

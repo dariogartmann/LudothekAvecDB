@@ -2,9 +2,9 @@
 using Ludothek.Storage.Models;
 using System.Collections.Generic;
 using System.Web.Mvc;
-using Ludothek.WebApp.Models.Game;
+using Ludothek.App.Models.Game;
 
-namespace Ludothek.WebApp.Controllers
+namespace Ludothek.App.Controllers
 {
     public class GameController : Controller
     {
@@ -19,6 +19,7 @@ namespace Ludothek.WebApp.Controllers
         public ActionResult Index()
         {
             List<Spiel> games = m_gameRepository.GetAllGames();
+
             return View(new GameListViewModel(games));
         }
     }

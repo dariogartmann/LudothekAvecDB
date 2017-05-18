@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 VisualStudioVersion = 15.0.26430.6
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ludothek.WebApp", "Ludothek.WebApp\Ludothek.WebApp.csproj", "{C7ECF975-64F8-4C4B-94CF-FFC3BDD920F5}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ludothek.App", "Ludothek.App\Ludothek.App.csproj", "{C7ECF975-64F8-4C4B-94CF-FFC3BDD920F5}"
 	ProjectSection(ProjectDependencies) = postProject
 		{37F98B99-1BB5-4C8A-9848-221AB13D5F28} = {37F98B99-1BB5-4C8A-9848-221AB13D5F28}
 	EndProjectSection

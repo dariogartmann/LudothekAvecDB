@@ -3,11 +3,10 @@ using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin;
 using Microsoft.Owin.Security.Cookies;
-using Microsoft.Owin.Security.Google;
 using Owin;
-using Ludothek.WebApp.Models;
+using Ludothek.App.Models;
 
-namespace Ludothek.WebApp
+namespace Ludothek.App
 {
     public partial class Startup
     {

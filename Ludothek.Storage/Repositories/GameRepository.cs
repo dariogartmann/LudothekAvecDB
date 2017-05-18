@@ -39,7 +39,7 @@ namespace Ludothek.Storage.Repositories {
         /// </summary>
         /// <param name="spiel">game to add</param>
         /// <returns>true if successful</returns>
-        public bool AddGame(Spiel spiel)
+        public bool Create(Spiel spiel)
         {
             using (DbContext = new LudothekEntities())
             {

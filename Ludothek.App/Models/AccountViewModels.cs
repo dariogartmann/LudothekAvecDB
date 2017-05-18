@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
-namespace Ludothek.WebApp.Models
+namespace Ludothek.App.Models
 {
     public class ExternalLoginConfirmationViewModel
     {

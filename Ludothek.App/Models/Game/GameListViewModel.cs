@@ -1,7 +1,7 @@
 ﻿using Ludothek.Storage.Models;
 using System.Collections.Generic;
 
-namespace Ludothek.WebApp.Models.Game
+namespace Ludothek.App.Models.Game
 {
     public class GameListViewModel
     {

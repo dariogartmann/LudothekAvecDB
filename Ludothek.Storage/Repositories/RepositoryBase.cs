@@ -69,5 +69,7 @@ namespace Ludothek.Storage.Repositories
 
             return context.SaveChanges();
         }
+
+        #endregion
     }
 }

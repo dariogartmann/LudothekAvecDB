@@ -3,7 +3,7 @@ using System.ComponentModel.DataAnnotations;
 using Microsoft.AspNet.Identity;
 using Microsoft.Owin.Security;
 
-namespace Ludothek.WebApp.Models
+namespace Ludothek.App.Models
 {
     public class IndexViewModel
     {
