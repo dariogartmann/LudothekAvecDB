@@ -7,7 +7,7 @@ using System.Collections.Generic;
 using System.Linq;
 
 namespace Ludothek.Storage.Repositories {
-    public class GameRepository : RepositoryBase {
+    public class GameRepository : RepositoryBase<Spiel> {
 
         /// <summary>
         /// get a list of all games (unfiltered)
@@ -17,7 +17,7 @@ namespace Ludothek.Storage.Repositories {
         {
             using (DbContext = new LudothekEntities())
             {
-                return DbContext.Spiel.ToList();
+                return Read(DbContext).ToList();
             }
         }
 
@@ -43,8 +43,8 @@ namespace Ludothek.Storage.Repositories {
         {
             using (DbContext = new LudothekEntities())
             {
-                DbContext.Spiel.Add(spiel);
-                return DbContext.SaveChanges() > 0;
+                int affectedRows = Create(DbContext, spiel);
+                return affectedRows > 0;
             }
         }
     }
