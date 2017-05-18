@@ -5,9 +5,9 @@ The goal is to implement a web-based "Ludothek". The database used in this proje
 
 ## Installation
 - Clone solution
-- Create local database using the script "db-script.sql"
-- Go!
+- Connect to db: "(localdb)\MSSQLLocalDb"
+- Create database using the script "db-script.sql"
+- Start Webapp
 
 # ToDo
-- Fix Namespaces and EF Model
 - Documentation
