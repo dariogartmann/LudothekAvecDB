@@ -1,0 +1,876 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="Ludothek.Storage.Models.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Ausleihe">
+          <Key>
+            <PropertyRef Name="AusleiheKeyGUID" />
+          </Key>
+          <Property Name="AusleiheKeyGUID" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="Startdatum" Type="datetime2" Precision="7" Nullable="false" />
+          <Property Name="Enddatum" Type="datetime2" Precision="7" Nullable="false" />
+          <Property Name="FK_Kunde" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="FK_Spiel1" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="FK_Spiel2" Type="uniqueidentifier" />
+          <Property Name="FK_Spiel3" Type="uniqueidentifier" />
+        </EntityType>
+        <EntityType Name="Bestellung">
+          <Key>
+            <PropertyRef Name="Referenznummer" />
+          </Key>
+          <Property Name="Referenznummer" Type="int" Nullable="false" />
+          <Property Name="Datum" Type="datetime2" Precision="7" Nullable="false" />
+          <Property Name="FK_Mitarbeiter" Type="int" Nullable="false" />
+          <Property Name="FK_Filiale" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="FK_Verlag" Type="uniqueidentifier" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Filiale">
+          <Key>
+            <PropertyRef Name="FilialKeyGUID" />
+          </Key>
+          <Property Name="FilialKeyGUID" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="Vereinsname" Type="varchar" MaxLength="255" Nullable="false" />
+          <Property Name="Strasse" Type="varchar" MaxLength="255" Nullable="false" />
+          <Property Name="Ort" Type="varchar" MaxLength="255" Nullable="false" />
+          <Property Name="PLZ" Type="int" Nullable="false" />
+          <Property Name="FK_Verband" Type="uniqueidentifier" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Kunde">
+          <Key>
+            <PropertyRef Name="KundenKeyGUID" />
+          </Key>
+          <Property Name="KundenKeyGUID" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="Vorname" Type="varchar" MaxLength="255" Nullable="false" />
+          <Property Name="Nachname" Type="varchar" MaxLength="255" Nullable="false" />
+          <Property Name="Geburtsdatum" Type="date" Nullable="false" />
+          <Property Name="Strasse" Type="varchar" MaxLength="255" Nullable="false" />
+          <Property Name="Ort" Type="varchar" MaxLength="255" Nullable="false" />
+          <Property Name="PLZ" Type="int" Nullable="false" />
+          <Property Name="IstFilialvorstandsmitglied" Type="bit" Nullable="false" />
+          <Property Name="FK_Filiale" Type="uniqueidentifier" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Mitarbeiter">
+          <Key>
+            <PropertyRef Name="AHVNummer" />
+          </Key>
+          <Property Name="AHVNummer" Type="int" Nullable="false" />
+          <Property Name="Vorname" Type="varchar" MaxLength="255" Nullable="false" />
+          <Property Name="Nachname" Type="varchar" MaxLength="255" Nullable="false" />
+          <Property Name="Strasse" Type="varchar" MaxLength="255" Nullable="false" />
+          <Property Name="Ort" Type="varchar" MaxLength="255" Nullable="false" />
+          <Property Name="PLZ" Type="int" Nullable="false" />
+          <Property Name="IstFilialleiter" Type="bit" Nullable="false" />
+          <Property Name="IstStellvertreter" Type="bit" Nullable="false" />
+          <Property Name="IstVerbandvorstandsmitglied" Type="bit" Nullable="false" />
+          <Property Name="IstFilialvorstandsmitglied" Type="bit" Nullable="false" />
+          <Property Name="FK_Filiale" Type="uniqueidentifier" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Spiel">
+          <Key>
+            <PropertyRef Name="SpielKeyGUID" />
+          </Key>
+          <Property Name="SpielKeyGUID" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="EANNummer" Type="int" Nullable="false" />
+          <Property Name="Name" Type="varchar" MaxLength="255" Nullable="false" />
+          <Property Name="FK_Tarifkategorie" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="Spielkategorie" Type="varchar" MaxLength="255" Nullable="false" />
+          <Property Name="FK_Filiale" Type="uniqueidentifier" Nullable="false" />
+        </EntityType>
+        <EntityType Name="SpielBestellung">
+          <Key>
+            <PropertyRef Name="SpielBestellungKeyGUID" />
+          </Key>
+          <Property Name="SpielBestellungKeyGUID" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="FK_Bestellung" Type="int" Nullable="false" />
+          <Property Name="FK_Spiel" Type="uniqueidentifier" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Tarifkategorie">
+          <Key>
+            <PropertyRef Name="TarifkategorieKeyGUID" />
+          </Key>
+          <Property Name="TarifkategorieKeyGUID" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="Bezeichnung" Type="varchar" MaxLength="255" Nullable="false" />
+          <Property Name="Preis" Type="decimal" Precision="18" Scale="0" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Verband">
+          <Key>
+            <PropertyRef Name="VerbandKeyGUID" />
+          </Key>
+          <Property Name="VerbandKeyGUID" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="Name" Type="varchar" MaxLength="255" Nullable="false" />
+          <Property Name="Region" Type="varchar" MaxLength="255" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Verlag">
+          <Key>
+            <PropertyRef Name="VerlagKeyGUID" />
+          </Key>
+          <Property Name="VerlagKeyGUID" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="Name" Type="varchar" MaxLength="255" Nullable="false" />
+          <Property Name="Strasse" Type="varchar" MaxLength="255" Nullable="false" />
+          <Property Name="Ort" Type="varchar" MaxLength="255" Nullable="false" />
+          <Property Name="PLZ" Type="int" Nullable="false" />
+        </EntityType>
+        <Association Name="FK__Ausleihe__FK_Kun__267ABA7A">
+          <End Role="Kunde" Type="Self.Kunde" Multiplicity="1" />
+          <End Role="Ausleihe" Type="Self.Ausleihe" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Kunde">
+              <PropertyRef Name="KundenKeyGUID" />
+            </Principal>
+            <Dependent Role="Ausleihe">
+              <PropertyRef Name="FK_Kunde" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Ausleihe__FK_Spi__276EDEB3">
+          <End Role="Spiel" Type="Self.Spiel" Multiplicity="1" />
+          <End Role="Ausleihe" Type="Self.Ausleihe" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Spiel">
+              <PropertyRef Name="SpielKeyGUID" />
+            </Principal>
+            <Dependent Role="Ausleihe">
+              <PropertyRef Name="FK_Spiel1" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Ausleihe__FK_Spi__286302EC">
+          <End Role="Spiel" Type="Self.Spiel" Multiplicity="0..1" />
+          <End Role="Ausleihe" Type="Self.Ausleihe" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Spiel">
+              <PropertyRef Name="SpielKeyGUID" />
+            </Principal>
+            <Dependent Role="Ausleihe">
+              <PropertyRef Name="FK_Spiel2" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Ausleihe__FK_Spi__29572725">
+          <End Role="Spiel" Type="Self.Spiel" Multiplicity="0..1" />
+          <End Role="Ausleihe" Type="Self.Ausleihe" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Spiel">
+              <PropertyRef Name="SpielKeyGUID" />
+            </Principal>
+            <Dependent Role="Ausleihe">
+              <PropertyRef Name="FK_Spiel3" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Bestellun__FK_Fi__2F10007B">
+          <End Role="Filiale" Type="Self.Filiale" Multiplicity="1" />
+          <End Role="Bestellung" Type="Self.Bestellung" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Filiale">
+              <PropertyRef Name="FilialKeyGUID" />
+            </Principal>
+            <Dependent Role="Bestellung">
+              <PropertyRef Name="FK_Filiale" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Bestellun__FK_Mi__2E1BDC42">
+          <End Role="Mitarbeiter" Type="Self.Mitarbeiter" Multiplicity="1" />
+          <End Role="Bestellung" Type="Self.Bestellung" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Mitarbeiter">
+              <PropertyRef Name="AHVNummer" />
+            </Principal>
+            <Dependent Role="Bestellung">
+              <PropertyRef Name="FK_Mitarbeiter" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Bestellun__FK_Ve__300424B4">
+          <End Role="Verlag" Type="Self.Verlag" Multiplicity="1" />
+          <End Role="Bestellung" Type="Self.Bestellung" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Verlag">
+              <PropertyRef Name="VerlagKeyGUID" />
+            </Principal>
+            <Dependent Role="Bestellung">
+              <PropertyRef Name="FK_Verlag" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Filiale__FK_Verb__1273C1CD">
+          <End Role="Verband" Type="Self.Verband" Multiplicity="1" />
+          <End Role="Filiale" Type="Self.Filiale" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Verband">
+              <PropertyRef Name="VerbandKeyGUID" />
+            </Principal>
+            <Dependent Role="Filiale">
+              <PropertyRef Name="FK_Verband" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Kunde__FK_Filial__1CF15040">
+          <End Role="Filiale" Type="Self.Filiale" Multiplicity="1" />
+          <End Role="Kunde" Type="Self.Kunde" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Filiale">
+              <PropertyRef Name="FilialKeyGUID" />
+            </Principal>
+            <Dependent Role="Kunde">
+              <PropertyRef Name="FK_Filiale" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Mitarbeit__FK_Fi__1920BF5C">
+          <End Role="Filiale" Type="Self.Filiale" Multiplicity="1" />
+          <End Role="Mitarbeiter" Type="Self.Mitarbeiter" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Filiale">
+              <PropertyRef Name="FilialKeyGUID" />
+            </Principal>
+            <Dependent Role="Mitarbeiter">
+              <PropertyRef Name="FK_Filiale" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Spiel__FK_Filial__22AA2996">
+          <End Role="Filiale" Type="Self.Filiale" Multiplicity="1" />
+          <End Role="Spiel" Type="Self.Spiel" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Filiale">
+              <PropertyRef Name="FilialKeyGUID" />
+            </Principal>
+            <Dependent Role="Spiel">
+              <PropertyRef Name="FK_Filiale" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Spiel__FK_Tarifk__239E4DCF">
+          <End Role="Tarifkategorie" Type="Self.Tarifkategorie" Multiplicity="1" />
+          <End Role="Spiel" Type="Self.Spiel" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Tarifkategorie">
+              <PropertyRef Name="TarifkategorieKeyGUID" />
+            </Principal>
+            <Dependent Role="Spiel">
+              <PropertyRef Name="FK_Tarifkategorie" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__SpielBest__FK_Be__32E0915F">
+          <End Role="Bestellung" Type="Self.Bestellung" Multiplicity="1" />
+          <End Role="SpielBestellung" Type="Self.SpielBestellung" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Bestellung">
+              <PropertyRef Name="Referenznummer" />
+            </Principal>
+            <Dependent Role="SpielBestellung">
+              <PropertyRef Name="FK_Bestellung" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__SpielBest__FK_Sp__33D4B598">
+          <End Role="Spiel" Type="Self.Spiel" Multiplicity="1" />
+          <End Role="SpielBestellung" Type="Self.SpielBestellung" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Spiel">
+              <PropertyRef Name="SpielKeyGUID" />
+            </Principal>
+            <Dependent Role="SpielBestellung">
+              <PropertyRef Name="FK_Spiel" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="LudothekStorageModelsStoreContainer">
+          <EntitySet Name="Ausleihe" EntityType="Self.Ausleihe" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Bestellung" EntityType="Self.Bestellung" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Filiale" EntityType="Self.Filiale" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Kunde" EntityType="Self.Kunde" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Mitarbeiter" EntityType="Self.Mitarbeiter" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Spiel" EntityType="Self.Spiel" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="SpielBestellung" EntityType="Self.SpielBestellung" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Tarifkategorie" EntityType="Self.Tarifkategorie" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Verband" EntityType="Self.Verband" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Verlag" EntityType="Self.Verlag" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK__Ausleihe__FK_Kun__267ABA7A" Association="Self.FK__Ausleihe__FK_Kun__267ABA7A">
+            <End Role="Kunde" EntitySet="Kunde" />
+            <End Role="Ausleihe" EntitySet="Ausleihe" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Ausleihe__FK_Spi__276EDEB3" Association="Self.FK__Ausleihe__FK_Spi__276EDEB3">
+            <End Role="Spiel" EntitySet="Spiel" />
+            <End Role="Ausleihe" EntitySet="Ausleihe" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Ausleihe__FK_Spi__286302EC" Association="Self.FK__Ausleihe__FK_Spi__286302EC">
+            <End Role="Spiel" EntitySet="Spiel" />
+            <End Role="Ausleihe" EntitySet="Ausleihe" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Ausleihe__FK_Spi__29572725" Association="Self.FK__Ausleihe__FK_Spi__29572725">
+            <End Role="Spiel" EntitySet="Spiel" />
+            <End Role="Ausleihe" EntitySet="Ausleihe" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Bestellun__FK_Fi__2F10007B" Association="Self.FK__Bestellun__FK_Fi__2F10007B">
+            <End Role="Filiale" EntitySet="Filiale" />
+            <End Role="Bestellung" EntitySet="Bestellung" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Bestellun__FK_Mi__2E1BDC42" Association="Self.FK__Bestellun__FK_Mi__2E1BDC42">
+            <End Role="Mitarbeiter" EntitySet="Mitarbeiter" />
+            <End Role="Bestellung" EntitySet="Bestellung" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Bestellun__FK_Ve__300424B4" Association="Self.FK__Bestellun__FK_Ve__300424B4">
+            <End Role="Verlag" EntitySet="Verlag" />
+            <End Role="Bestellung" EntitySet="Bestellung" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Filiale__FK_Verb__1273C1CD" Association="Self.FK__Filiale__FK_Verb__1273C1CD">
+            <End Role="Verband" EntitySet="Verband" />
+            <End Role="Filiale" EntitySet="Filiale" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Kunde__FK_Filial__1CF15040" Association="Self.FK__Kunde__FK_Filial__1CF15040">
+            <End Role="Filiale" EntitySet="Filiale" />
+            <End Role="Kunde" EntitySet="Kunde" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Mitarbeit__FK_Fi__1920BF5C" Association="Self.FK__Mitarbeit__FK_Fi__1920BF5C">
+            <End Role="Filiale" EntitySet="Filiale" />
+            <End Role="Mitarbeiter" EntitySet="Mitarbeiter" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Spiel__FK_Filial__22AA2996" Association="Self.FK__Spiel__FK_Filial__22AA2996">
+            <End Role="Filiale" EntitySet="Filiale" />
+            <End Role="Spiel" EntitySet="Spiel" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Spiel__FK_Tarifk__239E4DCF" Association="Self.FK__Spiel__FK_Tarifk__239E4DCF">
+            <End Role="Tarifkategorie" EntitySet="Tarifkategorie" />
+            <End Role="Spiel" EntitySet="Spiel" />
+          </AssociationSet>
+          <AssociationSet Name="FK__SpielBest__FK_Be__32E0915F" Association="Self.FK__SpielBest__FK_Be__32E0915F">
+            <End Role="Bestellung" EntitySet="Bestellung" />
+            <End Role="SpielBestellung" EntitySet="SpielBestellung" />
+          </AssociationSet>
+          <AssociationSet Name="FK__SpielBest__FK_Sp__33D4B598" Association="Self.FK__SpielBest__FK_Sp__33D4B598">
+            <End Role="Spiel" EntitySet="Spiel" />
+            <End Role="SpielBestellung" EntitySet="SpielBestellung" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="Ludothek.Storage.Models" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Ausleihe">
+          <Key>
+            <PropertyRef Name="AusleiheKeyGUID" />
+          </Key>
+          <Property Name="AusleiheKeyGUID" Type="Guid" Nullable="false" />
+          <Property Name="Startdatum" Type="DateTime" Nullable="false" Precision="7" />
+          <Property Name="Enddatum" Type="DateTime" Nullable="false" Precision="7" />
+          <Property Name="FK_Kunde" Type="Guid" Nullable="false" />
+          <Property Name="FK_Spiel1" Type="Guid" Nullable="false" />
+          <Property Name="FK_Spiel2" Type="Guid" />
+          <Property Name="FK_Spiel3" Type="Guid" />
+          <NavigationProperty Name="Kunde" Relationship="Self.FK__Ausleihe__FK_Kun__267ABA7A" FromRole="Ausleihe" ToRole="Kunde" />
+          <NavigationProperty Name="Spiel" Relationship="Self.FK__Ausleihe__FK_Spi__276EDEB3" FromRole="Ausleihe" ToRole="Spiel" />
+          <NavigationProperty Name="Spiel1" Relationship="Self.FK__Ausleihe__FK_Spi__286302EC" FromRole="Ausleihe" ToRole="Spiel" />
+          <NavigationProperty Name="Spiel2" Relationship="Self.FK__Ausleihe__FK_Spi__29572725" FromRole="Ausleihe" ToRole="Spiel" />
+        </EntityType>
+        <EntityType Name="Bestellung">
+          <Key>
+            <PropertyRef Name="Referenznummer" />
+          </Key>
+          <Property Name="Referenznummer" Type="Int32" Nullable="false" />
+          <Property Name="Datum" Type="DateTime" Nullable="false" Precision="7" />
+          <Property Name="FK_Mitarbeiter" Type="Int32" Nullable="false" />
+          <Property Name="FK_Filiale" Type="Guid" Nullable="false" />
+          <Property Name="FK_Verlag" Type="Guid" Nullable="false" />
+          <NavigationProperty Name="Filiale" Relationship="Self.FK__Bestellun__FK_Fi__2F10007B" FromRole="Bestellung" ToRole="Filiale" />
+          <NavigationProperty Name="Mitarbeiter" Relationship="Self.FK__Bestellun__FK_Mi__2E1BDC42" FromRole="Bestellung" ToRole="Mitarbeiter" />
+          <NavigationProperty Name="Verlag" Relationship="Self.FK__Bestellun__FK_Ve__300424B4" FromRole="Bestellung" ToRole="Verlag" />
+          <NavigationProperty Name="SpielBestellung" Relationship="Self.FK__SpielBest__FK_Be__32E0915F" FromRole="Bestellung" ToRole="SpielBestellung" />
+        </EntityType>
+        <EntityType Name="Filiale">
+          <Key>
+            <PropertyRef Name="FilialKeyGUID" />
+          </Key>
+          <Property Name="FilialKeyGUID" Type="Guid" Nullable="false" />
+          <Property Name="Vereinsname" Type="String" MaxLength="255" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Strasse" Type="String" MaxLength="255" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Ort" Type="String" MaxLength="255" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="PLZ" Type="Int32" Nullable="false" />
+          <Property Name="FK_Verband" Type="Guid" Nullable="false" />
+          <NavigationProperty Name="Bestellung" Relationship="Self.FK__Bestellun__FK_Fi__2F10007B" FromRole="Filiale" ToRole="Bestellung" />
+          <NavigationProperty Name="Verband" Relationship="Self.FK__Filiale__FK_Verb__1273C1CD" FromRole="Filiale" ToRole="Verband" />
+          <NavigationProperty Name="Kunde" Relationship="Self.FK__Kunde__FK_Filial__1CF15040" FromRole="Filiale" ToRole="Kunde" />
+          <NavigationProperty Name="Mitarbeiter" Relationship="Self.FK__Mitarbeit__FK_Fi__1920BF5C" FromRole="Filiale" ToRole="Mitarbeiter" />
+          <NavigationProperty Name="Spiel" Relationship="Self.FK__Spiel__FK_Filial__22AA2996" FromRole="Filiale" ToRole="Spiel" />
+        </EntityType>
+        <EntityType Name="Kunde">
+          <Key>
+            <PropertyRef Name="KundenKeyGUID" />
+          </Key>
+          <Property Name="KundenKeyGUID" Type="Guid" Nullable="false" />
+          <Property Name="Vorname" Type="String" MaxLength="255" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Nachname" Type="String" MaxLength="255" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Geburtsdatum" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="Strasse" Type="String" MaxLength="255" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Ort" Type="String" MaxLength="255" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="PLZ" Type="Int32" Nullable="false" />
+          <Property Name="IstFilialvorstandsmitglied" Type="Boolean" Nullable="false" />
+          <Property Name="FK_Filiale" Type="Guid" Nullable="false" />
+          <NavigationProperty Name="Ausleihe" Relationship="Self.FK__Ausleihe__FK_Kun__267ABA7A" FromRole="Kunde" ToRole="Ausleihe" />
+          <NavigationProperty Name="Filiale" Relationship="Self.FK__Kunde__FK_Filial__1CF15040" FromRole="Kunde" ToRole="Filiale" />
+        </EntityType>
+        <EntityType Name="Mitarbeiter">
+          <Key>
+            <PropertyRef Name="AHVNummer" />
+          </Key>
+          <Property Name="AHVNummer" Type="Int32" Nullable="false" />
+          <Property Name="Vorname" Type="String" MaxLength="255" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Nachname" Type="String" MaxLength="255" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Strasse" Type="String" MaxLength="255" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Ort" Type="String" MaxLength="255" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="PLZ" Type="Int32" Nullable="false" />
+          <Property Name="IstFilialleiter" Type="Boolean" Nullable="false" />
+          <Property Name="IstStellvertreter" Type="Boolean" Nullable="false" />
+          <Property Name="IstVerbandvorstandsmitglied" Type="Boolean" Nullable="false" />
+          <Property Name="IstFilialvorstandsmitglied" Type="Boolean" Nullable="false" />
+          <Property Name="FK_Filiale" Type="Guid" Nullable="false" />
+          <NavigationProperty Name="Bestellung" Relationship="Self.FK__Bestellun__FK_Mi__2E1BDC42" FromRole="Mitarbeiter" ToRole="Bestellung" />
+          <NavigationProperty Name="Filiale" Relationship="Self.FK__Mitarbeit__FK_Fi__1920BF5C" FromRole="Mitarbeiter" ToRole="Filiale" />
+        </EntityType>
+        <EntityType Name="Spiel">
+          <Key>
+            <PropertyRef Name="SpielKeyGUID" />
+          </Key>
+          <Property Name="SpielKeyGUID" Type="Guid" Nullable="false" />
+          <Property Name="EANNummer" Type="Int32" Nullable="false" />
+          <Property Name="Name" Type="String" MaxLength="255" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="FK_Tarifkategorie" Type="Guid" Nullable="false" />
+          <Property Name="Spielkategorie" Type="String" MaxLength="255" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="FK_Filiale" Type="Guid" Nullable="false" />
+          <NavigationProperty Name="Ausleihe" Relationship="Self.FK__Ausleihe__FK_Spi__276EDEB3" FromRole="Spiel" ToRole="Ausleihe" />
+          <NavigationProperty Name="Ausleihe1" Relationship="Self.FK__Ausleihe__FK_Spi__286302EC" FromRole="Spiel" ToRole="Ausleihe" />
+          <NavigationProperty Name="Ausleihe2" Relationship="Self.FK__Ausleihe__FK_Spi__29572725" FromRole="Spiel" ToRole="Ausleihe" />
+          <NavigationProperty Name="Filiale" Relationship="Self.FK__Spiel__FK_Filial__22AA2996" FromRole="Spiel" ToRole="Filiale" />
+          <NavigationProperty Name="Tarifkategorie" Relationship="Self.FK__Spiel__FK_Tarifk__239E4DCF" FromRole="Spiel" ToRole="Tarifkategorie" />
+          <NavigationProperty Name="SpielBestellung" Relationship="Self.FK__SpielBest__FK_Sp__33D4B598" FromRole="Spiel" ToRole="SpielBestellung" />
+        </EntityType>
+        <EntityType Name="SpielBestellung">
+          <Key>
+            <PropertyRef Name="SpielBestellungKeyGUID" />
+          </Key>
+          <Property Name="SpielBestellungKeyGUID" Type="Guid" Nullable="false" />
+          <Property Name="FK_Bestellung" Type="Int32" Nullable="false" />
+          <Property Name="FK_Spiel" Type="Guid" Nullable="false" />
+          <NavigationProperty Name="Bestellung" Relationship="Self.FK__SpielBest__FK_Be__32E0915F" FromRole="SpielBestellung" ToRole="Bestellung" />
+          <NavigationProperty Name="Spiel" Relationship="Self.FK__SpielBest__FK_Sp__33D4B598" FromRole="SpielBestellung" ToRole="Spiel" />
+        </EntityType>
+        <EntityType Name="Tarifkategorie">
+          <Key>
+            <PropertyRef Name="TarifkategorieKeyGUID" />
+          </Key>
+          <Property Name="TarifkategorieKeyGUID" Type="Guid" Nullable="false" />
+          <Property Name="Bezeichnung" Type="String" MaxLength="255" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Preis" Type="Decimal" Precision="18" Scale="0" Nullable="false" />
+          <NavigationProperty Name="Spiel" Relationship="Self.FK__Spiel__FK_Tarifk__239E4DCF" FromRole="Tarifkategorie" ToRole="Spiel" />
+        </EntityType>
+        <EntityType Name="Verband">
+          <Key>
+            <PropertyRef Name="VerbandKeyGUID" />
+          </Key>
+          <Property Name="VerbandKeyGUID" Type="Guid" Nullable="false" />
+          <Property Name="Name" Type="String" MaxLength="255" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Region" Type="String" MaxLength="255" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="Filiale" Relationship="Self.FK__Filiale__FK_Verb__1273C1CD" FromRole="Verband" ToRole="Filiale" />
+        </EntityType>
+        <EntityType Name="Verlag">
+          <Key>
+            <PropertyRef Name="VerlagKeyGUID" />
+          </Key>
+          <Property Name="VerlagKeyGUID" Type="Guid" Nullable="false" />
+          <Property Name="Name" Type="String" MaxLength="255" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Strasse" Type="String" MaxLength="255" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Ort" Type="String" MaxLength="255" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="PLZ" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Bestellung" Relationship="Self.FK__Bestellun__FK_Ve__300424B4" FromRole="Verlag" ToRole="Bestellung" />
+        </EntityType>
+        <Association Name="FK__Ausleihe__FK_Kun__267ABA7A">
+          <End Role="Kunde" Type="Self.Kunde" Multiplicity="1" />
+          <End Role="Ausleihe" Type="Self.Ausleihe" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Kunde">
+              <PropertyRef Name="KundenKeyGUID" />
+            </Principal>
+            <Dependent Role="Ausleihe">
+              <PropertyRef Name="FK_Kunde" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Ausleihe__FK_Spi__276EDEB3">
+          <End Role="Spiel" Type="Self.Spiel" Multiplicity="1" />
+          <End Role="Ausleihe" Type="Self.Ausleihe" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Spiel">
+              <PropertyRef Name="SpielKeyGUID" />
+            </Principal>
+            <Dependent Role="Ausleihe">
+              <PropertyRef Name="FK_Spiel1" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Ausleihe__FK_Spi__286302EC">
+          <End Role="Spiel" Type="Self.Spiel" Multiplicity="0..1" />
+          <End Role="Ausleihe" Type="Self.Ausleihe" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Spiel">
+              <PropertyRef Name="SpielKeyGUID" />
+            </Principal>
+            <Dependent Role="Ausleihe">
+              <PropertyRef Name="FK_Spiel2" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Ausleihe__FK_Spi__29572725">
+          <End Role="Spiel" Type="Self.Spiel" Multiplicity="0..1" />
+          <End Role="Ausleihe" Type="Self.Ausleihe" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Spiel">
+              <PropertyRef Name="SpielKeyGUID" />
+            </Principal>
+            <Dependent Role="Ausleihe">
+              <PropertyRef Name="FK_Spiel3" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Bestellun__FK_Fi__2F10007B">
+          <End Role="Filiale" Type="Self.Filiale" Multiplicity="1" />
+          <End Role="Bestellung" Type="Self.Bestellung" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Filiale">
+              <PropertyRef Name="FilialKeyGUID" />
+            </Principal>
+            <Dependent Role="Bestellung">
+              <PropertyRef Name="FK_Filiale" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Bestellun__FK_Mi__2E1BDC42">
+          <End Role="Mitarbeiter" Type="Self.Mitarbeiter" Multiplicity="1" />
+          <End Role="Bestellung" Type="Self.Bestellung" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Mitarbeiter">
+              <PropertyRef Name="AHVNummer" />
+            </Principal>
+            <Dependent Role="Bestellung">
+              <PropertyRef Name="FK_Mitarbeiter" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Bestellun__FK_Ve__300424B4">
+          <End Role="Verlag" Type="Self.Verlag" Multiplicity="1" />
+          <End Role="Bestellung" Type="Self.Bestellung" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Verlag">
+              <PropertyRef Name="VerlagKeyGUID" />
+            </Principal>
+            <Dependent Role="Bestellung">
+              <PropertyRef Name="FK_Verlag" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__SpielBest__FK_Be__32E0915F">
+          <End Role="Bestellung" Type="Self.Bestellung" Multiplicity="1" />
+          <End Role="SpielBestellung" Type="Self.SpielBestellung" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Bestellung">
+              <PropertyRef Name="Referenznummer" />
+            </Principal>
+            <Dependent Role="SpielBestellung">
+              <PropertyRef Name="FK_Bestellung" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Filiale__FK_Verb__1273C1CD">
+          <End Role="Verband" Type="Self.Verband" Multiplicity="1" />
+          <End Role="Filiale" Type="Self.Filiale" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Verband">
+              <PropertyRef Name="VerbandKeyGUID" />
+            </Principal>
+            <Dependent Role="Filiale">
+              <PropertyRef Name="FK_Verband" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Kunde__FK_Filial__1CF15040">
+          <End Role="Filiale" Type="Self.Filiale" Multiplicity="1" />
+          <End Role="Kunde" Type="Self.Kunde" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Filiale">
+              <PropertyRef Name="FilialKeyGUID" />
+            </Principal>
+            <Dependent Role="Kunde">
+              <PropertyRef Name="FK_Filiale" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Mitarbeit__FK_Fi__1920BF5C">
+          <End Role="Filiale" Type="Self.Filiale" Multiplicity="1" />
+          <End Role="Mitarbeiter" Type="Self.Mitarbeiter" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Filiale">
+              <PropertyRef Name="FilialKeyGUID" />
+            </Principal>
+            <Dependent Role="Mitarbeiter">
+              <PropertyRef Name="FK_Filiale" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Spiel__FK_Filial__22AA2996">
+          <End Role="Filiale" Type="Self.Filiale" Multiplicity="1" />
+          <End Role="Spiel" Type="Self.Spiel" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Filiale">
+              <PropertyRef Name="FilialKeyGUID" />
+            </Principal>
+            <Dependent Role="Spiel">
+              <PropertyRef Name="FK_Filiale" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Spiel__FK_Tarifk__239E4DCF">
+          <End Role="Tarifkategorie" Type="Self.Tarifkategorie" Multiplicity="1" />
+          <End Role="Spiel" Type="Self.Spiel" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Tarifkategorie">
+              <PropertyRef Name="TarifkategorieKeyGUID" />
+            </Principal>
+            <Dependent Role="Spiel">
+              <PropertyRef Name="FK_Tarifkategorie" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__SpielBest__FK_Sp__33D4B598">
+          <End Role="Spiel" Type="Self.Spiel" Multiplicity="1" />
+          <End Role="SpielBestellung" Type="Self.SpielBestellung" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Spiel">
+              <PropertyRef Name="SpielKeyGUID" />
+            </Principal>
+            <Dependent Role="SpielBestellung">
+              <PropertyRef Name="FK_Spiel" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="LudothekDbEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Ausleihe" EntityType="Self.Ausleihe" />
+          <EntitySet Name="Bestellung" EntityType="Self.Bestellung" />
+          <EntitySet Name="Filiale" EntityType="Self.Filiale" />
+          <EntitySet Name="Kunde" EntityType="Self.Kunde" />
+          <EntitySet Name="Mitarbeiter" EntityType="Self.Mitarbeiter" />
+          <EntitySet Name="Spiel" EntityType="Self.Spiel" />
+          <EntitySet Name="SpielBestellung" EntityType="Self.SpielBestellung" />
+          <EntitySet Name="Tarifkategorie" EntityType="Self.Tarifkategorie" />
+          <EntitySet Name="Verband" EntityType="Self.Verband" />
+          <EntitySet Name="Verlag" EntityType="Self.Verlag" />
+          <AssociationSet Name="FK__Ausleihe__FK_Kun__267ABA7A" Association="Self.FK__Ausleihe__FK_Kun__267ABA7A">
+            <End Role="Kunde" EntitySet="Kunde" />
+            <End Role="Ausleihe" EntitySet="Ausleihe" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Ausleihe__FK_Spi__276EDEB3" Association="Self.FK__Ausleihe__FK_Spi__276EDEB3">
+            <End Role="Spiel" EntitySet="Spiel" />
+            <End Role="Ausleihe" EntitySet="Ausleihe" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Ausleihe__FK_Spi__286302EC" Association="Self.FK__Ausleihe__FK_Spi__286302EC">
+            <End Role="Spiel" EntitySet="Spiel" />
+            <End Role="Ausleihe" EntitySet="Ausleihe" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Ausleihe__FK_Spi__29572725" Association="Self.FK__Ausleihe__FK_Spi__29572725">
+            <End Role="Spiel" EntitySet="Spiel" />
+            <End Role="Ausleihe" EntitySet="Ausleihe" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Bestellun__FK_Fi__2F10007B" Association="Self.FK__Bestellun__FK_Fi__2F10007B">
+            <End Role="Filiale" EntitySet="Filiale" />
+            <End Role="Bestellung" EntitySet="Bestellung" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Bestellun__FK_Mi__2E1BDC42" Association="Self.FK__Bestellun__FK_Mi__2E1BDC42">
+            <End Role="Mitarbeiter" EntitySet="Mitarbeiter" />
+            <End Role="Bestellung" EntitySet="Bestellung" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Bestellun__FK_Ve__300424B4" Association="Self.FK__Bestellun__FK_Ve__300424B4">
+            <End Role="Verlag" EntitySet="Verlag" />
+            <End Role="Bestellung" EntitySet="Bestellung" />
+          </AssociationSet>
+          <AssociationSet Name="FK__SpielBest__FK_Be__32E0915F" Association="Self.FK__SpielBest__FK_Be__32E0915F">
+            <End Role="Bestellung" EntitySet="Bestellung" />
+            <End Role="SpielBestellung" EntitySet="SpielBestellung" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Filiale__FK_Verb__1273C1CD" Association="Self.FK__Filiale__FK_Verb__1273C1CD">
+            <End Role="Verband" EntitySet="Verband" />
+            <End Role="Filiale" EntitySet="Filiale" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Kunde__FK_Filial__1CF15040" Association="Self.FK__Kunde__FK_Filial__1CF15040">
+            <End Role="Filiale" EntitySet="Filiale" />
+            <End Role="Kunde" EntitySet="Kunde" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Mitarbeit__FK_Fi__1920BF5C" Association="Self.FK__Mitarbeit__FK_Fi__1920BF5C">
+            <End Role="Filiale" EntitySet="Filiale" />
+            <End Role="Mitarbeiter" EntitySet="Mitarbeiter" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Spiel__FK_Filial__22AA2996" Association="Self.FK__Spiel__FK_Filial__22AA2996">
+            <End Role="Filiale" EntitySet="Filiale" />
+            <End Role="Spiel" EntitySet="Spiel" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Spiel__FK_Tarifk__239E4DCF" Association="Self.FK__Spiel__FK_Tarifk__239E4DCF">
+            <End Role="Tarifkategorie" EntitySet="Tarifkategorie" />
+            <End Role="Spiel" EntitySet="Spiel" />
+          </AssociationSet>
+          <AssociationSet Name="FK__SpielBest__FK_Sp__33D4B598" Association="Self.FK__SpielBest__FK_Sp__33D4B598">
+            <End Role="Spiel" EntitySet="Spiel" />
+            <End Role="SpielBestellung" EntitySet="SpielBestellung" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="LudothekStorageModelsStoreContainer" CdmEntityContainer="LudothekDbEntities">
+          <EntitySetMapping Name="Ausleihe">
+            <EntityTypeMapping TypeName="Ludothek.Storage.Models.Ausleihe">
+              <MappingFragment StoreEntitySet="Ausleihe">
+                <ScalarProperty Name="AusleiheKeyGUID" ColumnName="AusleiheKeyGUID" />
+                <ScalarProperty Name="Startdatum" ColumnName="Startdatum" />
+                <ScalarProperty Name="Enddatum" ColumnName="Enddatum" />
+                <ScalarProperty Name="FK_Kunde" ColumnName="FK_Kunde" />
+                <ScalarProperty Name="FK_Spiel1" ColumnName="FK_Spiel1" />
+                <ScalarProperty Name="FK_Spiel2" ColumnName="FK_Spiel2" />
+                <ScalarProperty Name="FK_Spiel3" ColumnName="FK_Spiel3" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Bestellung">
+            <EntityTypeMapping TypeName="Ludothek.Storage.Models.Bestellung">
+              <MappingFragment StoreEntitySet="Bestellung">
+                <ScalarProperty Name="Referenznummer" ColumnName="Referenznummer" />
+                <ScalarProperty Name="Datum" ColumnName="Datum" />
+                <ScalarProperty Name="FK_Mitarbeiter" ColumnName="FK_Mitarbeiter" />
+                <ScalarProperty Name="FK_Filiale" ColumnName="FK_Filiale" />
+                <ScalarProperty Name="FK_Verlag" ColumnName="FK_Verlag" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Filiale">
+            <EntityTypeMapping TypeName="Ludothek.Storage.Models.Filiale">
+              <MappingFragment StoreEntitySet="Filiale">
+                <ScalarProperty Name="FilialKeyGUID" ColumnName="FilialKeyGUID" />
+                <ScalarProperty Name="Vereinsname" ColumnName="Vereinsname" />
+                <ScalarProperty Name="Strasse" ColumnName="Strasse" />
+                <ScalarProperty Name="Ort" ColumnName="Ort" />
+                <ScalarProperty Name="PLZ" ColumnName="PLZ" />
+                <ScalarProperty Name="FK_Verband" ColumnName="FK_Verband" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Kunde">
+            <EntityTypeMapping TypeName="Ludothek.Storage.Models.Kunde">
+              <MappingFragment StoreEntitySet="Kunde">
+                <ScalarProperty Name="KundenKeyGUID" ColumnName="KundenKeyGUID" />
+                <ScalarProperty Name="Vorname" ColumnName="Vorname" />
+                <ScalarProperty Name="Nachname" ColumnName="Nachname" />
+                <ScalarProperty Name="Geburtsdatum" ColumnName="Geburtsdatum" />
+                <ScalarProperty Name="Strasse" ColumnName="Strasse" />
+                <ScalarProperty Name="Ort" ColumnName="Ort" />
+                <ScalarProperty Name="PLZ" ColumnName="PLZ" />
+                <ScalarProperty Name="IstFilialvorstandsmitglied" ColumnName="IstFilialvorstandsmitglied" />
+                <ScalarProperty Name="FK_Filiale" ColumnName="FK_Filiale" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Mitarbeiter">
+            <EntityTypeMapping TypeName="Ludothek.Storage.Models.Mitarbeiter">
+              <MappingFragment StoreEntitySet="Mitarbeiter">
+                <ScalarProperty Name="AHVNummer" ColumnName="AHVNummer" />
+                <ScalarProperty Name="Vorname" ColumnName="Vorname" />
+                <ScalarProperty Name="Nachname" ColumnName="Nachname" />
+                <ScalarProperty Name="Strasse" ColumnName="Strasse" />
+                <ScalarProperty Name="Ort" ColumnName="Ort" />
+                <ScalarProperty Name="PLZ" ColumnName="PLZ" />
+                <ScalarProperty Name="IstFilialleiter" ColumnName="IstFilialleiter" />
+                <ScalarProperty Name="IstStellvertreter" ColumnName="IstStellvertreter" />
+                <ScalarProperty Name="IstVerbandvorstandsmitglied" ColumnName="IstVerbandvorstandsmitglied" />
+                <ScalarProperty Name="IstFilialvorstandsmitglied" ColumnName="IstFilialvorstandsmitglied" />
+                <ScalarProperty Name="FK_Filiale" ColumnName="FK_Filiale" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Spiel">
+            <EntityTypeMapping TypeName="Ludothek.Storage.Models.Spiel">
+              <MappingFragment StoreEntitySet="Spiel">
+                <ScalarProperty Name="SpielKeyGUID" ColumnName="SpielKeyGUID" />
+                <ScalarProperty Name="EANNummer" ColumnName="EANNummer" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="FK_Tarifkategorie" ColumnName="FK_Tarifkategorie" />
+                <ScalarProperty Name="Spielkategorie" ColumnName="Spielkategorie" />
+                <ScalarProperty Name="FK_Filiale" ColumnName="FK_Filiale" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="SpielBestellung">
+            <EntityTypeMapping TypeName="Ludothek.Storage.Models.SpielBestellung">
+              <MappingFragment StoreEntitySet="SpielBestellung">
+                <ScalarProperty Name="SpielBestellungKeyGUID" ColumnName="SpielBestellungKeyGUID" />
+                <ScalarProperty Name="FK_Bestellung" ColumnName="FK_Bestellung" />
+                <ScalarProperty Name="FK_Spiel" ColumnName="FK_Spiel" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Tarifkategorie">
+            <EntityTypeMapping TypeName="Ludothek.Storage.Models.Tarifkategorie">
+              <MappingFragment StoreEntitySet="Tarifkategorie">
+                <ScalarProperty Name="TarifkategorieKeyGUID" ColumnName="TarifkategorieKeyGUID" />
+                <ScalarProperty Name="Bezeichnung" ColumnName="Bezeichnung" />
+                <ScalarProperty Name="Preis" ColumnName="Preis" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Verband">
+            <EntityTypeMapping TypeName="Ludothek.Storage.Models.Verband">
+              <MappingFragment StoreEntitySet="Verband">
+                <ScalarProperty Name="VerbandKeyGUID" ColumnName="VerbandKeyGUID" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Region" ColumnName="Region" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Verlag">
+            <EntityTypeMapping TypeName="Ludothek.Storage.Models.Verlag">
+              <MappingFragment StoreEntitySet="Verlag">
+                <ScalarProperty Name="VerlagKeyGUID" ColumnName="VerlagKeyGUID" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Strasse" ColumnName="Strasse" />
+                <ScalarProperty Name="Ort" ColumnName="Ort" />
+                <ScalarProperty Name="PLZ" ColumnName="PLZ" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

@@ -69,10 +69,6 @@ CREATE TABLE dbo.Spiel
     Name varchar(255) NOT NULL,  
     FK_Tarifkategorie UNIQUEIDENTIFIER NOT NULL,
     Spielkategorie VARCHAR(255) NOT NULL CHECK (Spielkategorie IN('Kindergarten', 'Unterstufe', 'Oberstufe')),
-    Strasse varchar(255) NOT NULL,  
-    Ort varchar(255) NOT NULL,  
-    PLZ INT NOT NULL,  
-    IstFilialvorstandsmitglied BIT NOT NULL DEFAULT 0,
     FK_Filiale UNIQUEIDENTIFIER NOT NULL, 
 
     FOREIGN KEY (FK_Filiale) REFERENCES dbo.Filiale (FilialKeyGUID),
