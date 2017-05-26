@@ -110,6 +110,8 @@
       <DependentUpon>LudothekEntities.edmx</DependentUpon>
       <LastGenOutput>LudothekEntities.cs</LastGenOutput>
     </Content>
+    <Content Include="Scripts\Init_Database.sql" />
+    <Content Include="Scripts\Seed.sql" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.Config" />
