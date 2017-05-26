@@ -22,5 +22,18 @@ namespace Ludothek.App.Controllers
 
             return View(new GameListViewModel(games));
         }
+
+        // GET: /Game/Create
+        public ActionResult Create() {
+            return View("Create");
+        }
+
+        // POST: /Game/Create
+        [HttpPost]
+        public ActionResult Create(Spiel spiel)
+        {
+            var success = m_gameRepository.Create(spiel);
+            return View(success ? "Index" : "Error");
+        }
     }
 }
