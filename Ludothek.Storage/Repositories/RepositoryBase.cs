@@ -1,5 +1,6 @@
 ﻿using Ludothek.Storage.Models;
 using System;
+using System.Data.Entity;
 using System.Data.Entity.Migrations;
 using System.Linq;
 using System.Linq.Expressions;
@@ -52,10 +53,8 @@ namespace Ludothek.Storage.Repositories
         /// <returns>number of affected rows.</returns>
         public int Update(LudothekEntities context, Guid id, TEntity newEntity)
         {
-            context.Set<TEntity>().AddOrUpdate(newEntity);
-
+            context.Entry(newEntity).State = EntityState.Modified;
             var numberOfAffectedRows = context.SaveChanges();
-
             return numberOfAffectedRows;
         }
 

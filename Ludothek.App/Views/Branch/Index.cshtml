@@ -1,0 +1,56 @@
+﻿@model IEnumerable<Ludothek.Storage.Models.Filiale>
+@{
+    ViewBag.Title = "Branches";
+}
+<div id="index-branch">
+    <p>
+        @Html.ActionLink("Create New", "Create")
+    </p>
+    <table class="table">
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Vereinsname)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Strasse)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Ort)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.PLZ)
+            </th>
+            <th>
+                Verband
+            </th>
+            <th></th>
+        </tr>
+
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Vereinsname)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Strasse)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Ort)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.PLZ)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Verband.Name)
+                </td>
+                <td>
+                    @Html.ActionLink("Edit", "Edit", new { id = item.FilialKeyGUID }) |
+                    @Html.ActionLink("Details", "Details", new { id = item.FilialKeyGUID }) |
+                    @Html.ActionLink("Delete", "Delete", new { id = item.FilialKeyGUID })
+                </td>
+            </tr>
+        }
+
+    </table>
+</div>

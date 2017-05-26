@@ -9,5 +9,14 @@ The goal is to implement a web-based "Ludothek". The database used in this proje
 - Create database using the script "db-script.sql"
 - Start Webapp
 
-# ToDo
+## ToDo
 - Documentation
+
+
+## Language
+
+| Db            |Software       |
+| ------------- |:-------------:|
+| Filiale       | Branch        |
+| Verband       | Federation    |
+| Spiel         | Game          |
