@@ -1,17 +1,56 @@
-﻿@using Ludothek.Storage.Models
-@model Ludothek.App.Models.Game.GameListViewModel
+﻿@model IEnumerable<Ludothek.Storage.Models.Spiel>
+
 @{
-    ViewBag.Title = "All Games";
+    ViewBag.Title = "Manage Games";
 }
+<div id="game_index">
+    <p>
+        @Html.ActionLink("Create New", "Create")
+    </p>
+    <table class="table">
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.EANNummer)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Name)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Spielkategorie)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Filiale.Vereinsname)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Tarifkategorie.Bezeichnung)
+            </th>
+            <th></th>
+        </tr>
 
-<h2>All Games</h2>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.EANNummer)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Name)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Spielkategorie)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Filiale.Vereinsname)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Tarifkategorie.Bezeichnung)
+                </td>
+                <td>
+                    @Html.ActionLink("Edit", "Edit", new { id = item.SpielKeyGUID }) |
+                    @Html.ActionLink("Delete", "Delete", new { id = item.SpielKeyGUID })
+                </td>
+            </tr>
+        }
 
-@foreach(Spiel game in Model.Games)
-{
-    <li>
-        <p>@game.Name</p>
-        <span>@game.SpielKeyGUID</span>
-    </li>
-}
-
-
+    </table>
+</div>

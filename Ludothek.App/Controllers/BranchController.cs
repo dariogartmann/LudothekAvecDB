@@ -7,7 +7,7 @@ using Ludothek.Storage.Repositories;
 
 namespace Ludothek.App.Controllers
 {
-    public class BranchController : Controller
+    public class BranchController : Base.SecureController
     {
         private readonly BranchRepository m_branchRepository;
         private readonly FederationRepository m_federationRepository;
@@ -25,21 +25,6 @@ namespace Ludothek.App.Controllers
         {
             var branches = m_branchRepository.GetAllBranches();
             return View(branches);
-        }
-
-        // GET: Branch/Details/5
-        public ActionResult Details(Guid? id)
-        {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            Filiale filiale = m_branchRepository.GetBranch(id.Value);
-            if (filiale == null)
-            {
-                return HttpNotFound();
-            }
-            return View(filiale);
         }
 
         // GET: Branch/Create
@@ -91,7 +76,7 @@ namespace Ludothek.App.Controllers
         {
             if (ModelState.IsValid)
             {
-                m_branchRepository.Update(filiale.FilialKeyGUID, filiale);
+                m_branchRepository.Update(filiale);
                 return RedirectToAction("Index");
             }
 

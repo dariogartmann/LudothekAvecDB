@@ -2,7 +2,7 @@
 @{
     ViewBag.Title = "Branches";
 }
-<div id="index-branch">
+<div id="branch_index">
     <p>
         @Html.ActionLink("Create New", "Create")
     </p>
@@ -46,7 +46,6 @@
                 </td>
                 <td>
                     @Html.ActionLink("Edit", "Edit", new { id = item.FilialKeyGUID }) |
-                    @Html.ActionLink("Details", "Details", new { id = item.FilialKeyGUID }) |
                     @Html.ActionLink("Delete", "Delete", new { id = item.FilialKeyGUID })
                 </td>
             </tr>

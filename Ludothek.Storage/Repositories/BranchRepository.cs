@@ -59,11 +59,16 @@ namespace Ludothek.Storage.Repositories
             return successful;
         }
 
-        public bool Update(Guid id, Filiale filiale) {
+        /// <summary>
+        /// update a branch
+        /// </summary>
+        /// <param name="filiale">locally updated branch</param>
+        /// <returns>true if successful, otherwise false</returns>
+        public bool Update(Filiale filiale) {
             var successful = false;
             using (DbContext = new LudothekEntities()) {
                 if (filiale != null) {
-                    successful = Update(DbContext, id, filiale) > 0;
+                    successful = Update(DbContext, filiale.FilialKeyGUID, filiale) > 0;
                 }
             }
             return successful;

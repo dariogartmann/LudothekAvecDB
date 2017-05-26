@@ -4,6 +4,7 @@
 using Ludothek.Storage.Models;
 using System;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.Linq;
 
 namespace Ludothek.Storage.Repositories {
@@ -17,7 +18,10 @@ namespace Ludothek.Storage.Repositories {
         {
             using (DbContext = new LudothekEntities())
             {
-                return Read(DbContext).ToList();
+                return Read(DbContext)
+                    .Include(g => g.Tarifkategorie)
+                    .Include(g => g.Filiale)
+                    .ToList();
             }
         }
 
@@ -30,7 +34,10 @@ namespace Ludothek.Storage.Repositories {
         {
             using (DbContext = new LudothekEntities())
             {
-                return DbContext.Spiel.FirstOrDefault(s => s.SpielKeyGUID == id);
+                return DbContext.Spiel.Where(s => s.SpielKeyGUID == id)
+                    .Include(g => g.Tarifkategorie)
+                    .Include(g => g.Filiale)
+                    .FirstOrDefault();
             }
         }
 
@@ -46,6 +53,42 @@ namespace Ludothek.Storage.Repositories {
                 int affectedRows = Create(DbContext, spiel);
                 return affectedRows > 0;
             }
+        }
+
+        /// <summary>
+        /// update a game object
+        /// </summary>
+        /// <param name="game">the game</param>
+        /// <returns>true if successful, otherwise false</returns>
+        public bool Update(Spiel game) {
+            var successful = false;
+            using (DbContext = new LudothekEntities())
+            {
+                if (game != null)
+                {
+                    successful = Update(DbContext, game.SpielKeyGUID, game) > 0;
+                }
+            }
+            return successful;
+        }
+
+        /// <summary>
+        /// delete a game
+        /// </summary>
+        /// <param name="id">id of game to delete</param>
+        /// <returns>true if successful, otherwise false</returns>
+        public bool Delete(Guid id)
+        {
+            var successful = false;
+            Spiel game = GetGame(id);
+            using (DbContext = new LudothekEntities())
+            {
+                if (game != null)
+                {
+                    successful = Delete(DbContext, game) > 0;
+                }
+            }
+            return successful;
         }
     }
 }

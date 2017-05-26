@@ -6,17 +6,21 @@ The goal is to implement a web-based "Ludothek". The database used in this proje
 ## Installation
 - Clone solution
 - Connect to db: "(localdb)\MSSQLLocalDb"
-- Create database using the script "db-script.sql"
+- Create database using the script "Init_Databse.sql"
+- Fill the database with dummy data: "Seed.sql"
 - Start Webapp
 
 ## ToDo
 - Documentation
+- Auth (admin can edit important stuff)
+- Rentals
 
 
-## Language
+## German / English Mapping
 
 | Db            |Software       |
-| ------------- |:-------------:|
+| ------------- |-------------|
 | Filiale       | Branch        |
 | Verband       | Federation    |
 | Spiel         | Game          |
+| Tarifkategorie | PriceCategory |

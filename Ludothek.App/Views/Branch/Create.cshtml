@@ -1,5 +1,8 @@
 ﻿@model Ludothek.Storage.Models.Filiale
-<div id="create-branch">
+@{
+    ViewBag.Title = "Create Branch";
+}
+<div id="branch_create">
     @using (Html.BeginForm())
     {
         @Html.AntiForgeryToken()

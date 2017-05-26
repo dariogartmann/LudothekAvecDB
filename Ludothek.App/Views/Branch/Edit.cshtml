@@ -1,5 +1,8 @@
 ﻿@model Ludothek.Storage.Models.Filiale
-<div id="edit-branch">
+@{
+    ViewBag.Title = "Edit branch: " + Model.Vereinsname;
+}
+<div id="branch_edit">
     @using (Html.BeginForm())
     {
         @Html.AntiForgeryToken()
