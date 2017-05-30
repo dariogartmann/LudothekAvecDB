@@ -1,0 +1,42 @@
+﻿@model Ludothek.App.Models.Rental.NewRentalViewModel
+@{
+    ViewBag.Title = "New Rental";
+}
+
+<div id="rental_new">
+    @using (Html.BeginForm("New", "Rental", FormMethod.Post))
+    {
+        <div class="row">
+            <div class="col-md-12">
+                <h1>New Rental: @Model.Game.Name</h1>
+                <hr />
+                <input type="hidden" name="GameId" value="@Model.Game.SpielKeyGUID"/>
+            </div>
+            <div class="col-md-6">
+                <h2>Your data</h2>
+                <label>
+                    Customer Id
+                    <input type="text" value="@Model.CustomerId" readonly />
+                </label>
+            </div>
+            <div class="col-md-6">
+                <h2>Your selected game</h2>
+                <label>
+                    EAN Number
+                    <input type="text" value="@Model.Game.EANNummer" readonly />
+                </label>
+                <label>
+                    Name of Game
+                    <input type="text" value="@Model.Game.Name" readonly />
+                </label>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                <hr />
+                <button type="submit" class="right btn btn-primary">Confirm</button>
+                <div class="clearfix"></div>
+            </div>
+        </div>
+    }
+</div>

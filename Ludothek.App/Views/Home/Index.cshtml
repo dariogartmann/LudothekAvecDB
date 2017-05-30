@@ -16,7 +16,7 @@
             <h2>@game.Name</h2>
             <span>@game.EANNummer</span>
             <hr/>
-            <a class="btn btn-primary" href="@Url.Action("Index", "Rental", new {gameId = game.SpielKeyGUID})">Rent game!</a>
+            <a class="btn btn-primary" href="@Url.Action("New", "Rental", new {gameId = game.SpielKeyGUID})">Rent game!</a>
         </div>
     }
 
