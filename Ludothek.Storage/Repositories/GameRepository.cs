@@ -26,6 +26,20 @@ namespace Ludothek.Storage.Repositories {
         }
 
         /// <summary>
+        /// get all games that are not currently rented
+        /// </summary>
+        /// <returns>a list of available games</returns>
+        public List<Spiel> GetAvailableGames()
+        {
+            using(DbContext = new LudothekEntities())
+            {
+                // todo fix
+                return Read(DbContext).ToList();
+            }
+        }
+
+
+        /// <summary>
         /// get a specific game
         /// </summary>
         /// <param name="id">id of game as guid</param>
