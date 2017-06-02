@@ -12,9 +12,8 @@ The goal is to implement a web-based "Ludothek". The database used in this proje
 
 ## ToDo
 - Documentation
-- Auth (admin can edit important stuff)
-- Rentals
-
+- Auth (Only admin can edit important stuff > Set role and add to auth attribute in SecureBaseController)
+- Prolonging Rentals
 
 ## German / English Mapping
 
@@ -23,4 +22,5 @@ The goal is to implement a web-based "Ludothek". The database used in this proje
 | Filiale       | Branch        |
 | Verband       | Federation    |
 | Spiel         | Game          |
+| Ausleihe      | Rental         |
 | Tarifkategorie | PriceCategory |
