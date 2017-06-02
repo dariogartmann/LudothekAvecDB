@@ -1,12 +1,13 @@
-﻿using Ludothek.App.Models.Rental;
-using Ludothek.Storage.Models;
+﻿using Ludothek.Storage.Models;
 using Ludothek.Storage.Repositories;
 using System;
+using System.Collections.Generic;
 using System.Web.Mvc;
+using Ludothek.App.Controllers.Base;
 
 namespace Ludothek.App.Controllers
 {
-    public class RentalController : Controller
+    public class RentalController : BaseController
     {
         private RentalRepository m_rentalRepository;
         private GameRepository m_gameRepository;
@@ -20,10 +21,8 @@ namespace Ludothek.App.Controllers
         // GET: Rental
         public ActionResult Index()
         {
-            // todo find id of user and pass to repo method
-            // List<Ausleihe> rentals = m_rentalRepository.GetRentalsForCustomer(null);
-            // return View("Index", rentals);
-            return View();
+            List<Ausleihe> rentals = m_rentalRepository.GetRentalsForCustomer(GetCurrentUserId());
+            return View("Index", rentals);
         }
 
         // GET: Rental/New?gameId=..
@@ -31,24 +30,66 @@ namespace Ludothek.App.Controllers
         {
             if (!gameId.HasValue)
             {
-                return RedirectToAction("Index", "Home");
+                return new HttpStatusCodeResult(400);
             }
             Spiel game = m_gameRepository.GetGame(gameId.Value);
 
-            var user = HttpContext.User.Identity;
+            if (game != null) {
+                m_rentalRepository.AddRental(GetCurrentUserId(), game.SpielKeyGUID);
 
-            NewRentalViewModel viewModel = new NewRentalViewModel();
-            viewModel.Game = game;
-            viewModel.CustomerId = Guid.Empty; // todo fix
+                return RedirectToAction("Index", "Rental");
+            }
 
-            return View("New", viewModel);
+            return new HttpStatusCodeResult(400);
         }
 
-        // POST: Rental/New
-        [HttpPost]
-        public ActionResult New()
-        {
-            return View("New");
+        // GET: Rental/Cancel?rentalId=rentalId
+        public ActionResult Cancel(Guid? rentalId) {
+            if (!rentalId.HasValue) {
+                return new HttpStatusCodeResult(400);
+            }
+
+            Ausleihe rental = m_rentalRepository.GetRentalById(rentalId.Value);
+
+            if (rental != null) {
+                // check if user is valid
+                if (rental.Kunde.KundenKeyGUID == GetCurrentUserId()) {
+                    m_rentalRepository.CancelRental(rental.AusleiheKeyGUID);
+                    return RedirectToAction("Index", "Rental");
+                }
+                return new HttpUnauthorizedResult();
+            }
+
+            return new HttpStatusCodeResult(400);
+
         }
+
+        // GET: Rental/Prolong?rentalId=...
+        public ActionResult Prolong(Guid? rentalId) {
+            if (!rentalId.HasValue)
+            {
+                return new HttpStatusCodeResult(400);
+            }
+
+            Ausleihe rental = m_rentalRepository.GetRentalById(rentalId.Value);
+
+            if (rental != null)
+            {
+                // check if user is valid
+                if (rental.Kunde.KundenKeyGUID == GetCurrentUserId())
+                {
+                    var success = m_rentalRepository.ProlongRental(rental.AusleiheKeyGUID);
+                    if (success) {
+                        return RedirectToAction("Index", "Rental");
+                    } else {
+                        return View("Error");
+                    }
+                }
+                return new HttpUnauthorizedResult();
+            }
+
+            return new HttpStatusCodeResult(400);
+        }
+
     }
 }

@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="LudothekDbModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="LudothekDbModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="Ausleihe">
           <Key>
             <PropertyRef Name="AusleiheKeyGUID" />
@@ -78,6 +78,7 @@
           <Property Name="FK_Tarifkategorie" Type="uniqueidentifier" Nullable="false" />
           <Property Name="Spielkategorie" Type="varchar" MaxLength="255" Nullable="false" />
           <Property Name="FK_Filiale" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="IsAvailable" Type="bit" Nullable="false" />
         </EntityType>
         <EntityType Name="SpielBestellung">
           <Key>
@@ -349,8 +350,7 @@
             <End Role="SpielBestellung" EntitySet="SpielBestellung" />
           </AssociationSet>
         </EntityContainer>
-      </Schema>
-    </edmx:StorageModels>
+      </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="LudothekDbModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
@@ -450,6 +450,7 @@
           <NavigationProperty Name="Filiale" Relationship="Self.FK__Spiel__FK_Filial__22AA2996" FromRole="Spiel" ToRole="Filiale" />
           <NavigationProperty Name="Tarifkategorie" Relationship="Self.FK__Spiel__FK_Tarifk__239E4DCF" FromRole="Spiel" ToRole="Tarifkategorie" />
           <NavigationProperty Name="SpielBestellung" Relationship="Self.FK__SpielBest__FK_Sp__33D4B598" FromRole="Spiel" ToRole="SpielBestellung" />
+          <Property Name="IsAvailable" Type="Boolean" Nullable="false" />
         </EntityType>
         <EntityType Name="SpielBestellung">
           <Key>
@@ -803,6 +804,7 @@
           <EntitySetMapping Name="Spiel">
             <EntityTypeMapping TypeName="LudothekDbModel.Spiel">
               <MappingFragment StoreEntitySet="Spiel">
+                <ScalarProperty Name="IsAvailable" ColumnName="IsAvailable" />
                 <ScalarProperty Name="SpielKeyGUID" ColumnName="SpielKeyGUID" />
                 <ScalarProperty Name="EANNummer" ColumnName="EANNummer" />
                 <ScalarProperty Name="Name" ColumnName="Name" />

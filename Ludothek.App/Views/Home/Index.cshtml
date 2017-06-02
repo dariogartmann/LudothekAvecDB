@@ -6,17 +6,17 @@
 <div class="jumbotron">
     <h1>Ludothek</h1>
     <p class="lead">Search our games below and press the button to rent one if you want it.</p>
-    <p><a href="#allgames" class="btn btn-primary btn-lg">Explore &raquo;</a></p>
 </div>
 
 <div class="row" id="allgames">
     @foreach (var game in Model.ToList()) {
         <div class="col-md-4">
-            <img src="https://unsplash.it/200/300/?random" />
+            <img src="https://unsplash.it/860/540/?random" />
             <h2>@game.Name</h2>
-            <span>@game.EANNummer</span>
+            <span>EAN: @game.EANNummer</span>
             <hr/>
-            <a class="btn btn-primary" href="@Url.Action("New", "Rental", new {gameId = game.SpielKeyGUID})">Rent game!</a>
+            <a class="btn btn-primary pull-right" href="@Url.Action("New", "Rental", new {gameId = game.SpielKeyGUID})">Rent game!</a>
+            <div class="clearfix"></div>
         </div>
     }
 

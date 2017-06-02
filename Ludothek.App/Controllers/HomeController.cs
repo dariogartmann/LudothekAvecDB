@@ -1,13 +1,12 @@
-﻿using System.Collections.Generic;
-using System.Web.Mvc;
-using Ludothek.Storage.Models;
+﻿using System.Web.Mvc;
+using Ludothek.App.Controllers.Base;
 using Ludothek.Storage.Repositories;
 
 namespace Ludothek.App.Controllers
 {
-    public class HomeController : Controller
+    public class HomeController : BaseController
     {
-        private GameRepository m_gameRepository;
+        private readonly GameRepository m_gameRepository;
 
         public HomeController() {
             m_gameRepository = new GameRepository();
@@ -15,7 +14,7 @@ namespace Ludothek.App.Controllers
 
         public ActionResult Index()
         {
-            List<Spiel> games = m_gameRepository.GetAllGames();
+            var games = m_gameRepository.GetAvailableGames();
             return View("Index", games);
         }
     }

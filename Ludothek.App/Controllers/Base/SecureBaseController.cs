@@ -3,6 +3,6 @@
 namespace Ludothek.App.Controllers.Base
 {
     [Authorize]
-    public class SecureController : System.Web.Mvc.Controller {
+    public class SecureBaseController : BaseController {
     }
 }

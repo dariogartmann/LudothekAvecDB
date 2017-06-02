@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System;
+using System.Linq;
 using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
@@ -6,6 +7,8 @@ using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
 using Ludothek.App.Models;
+using Ludothek.Storage.Models;
+using Ludothek.Storage.Repositories;
 
 namespace Ludothek.App.Controllers
 {
@@ -159,6 +162,20 @@ namespace Ludothek.App.Controllers
                     // string code = await UserManager.GenerateEmailConfirmationTokenAsync(user.Id);
                     // var callbackUrl = Url.Action("ConfirmEmail", "Account", new { userId = user.Id, code = code }, protocol: Request.Url.Scheme);
                     // await UserManager.SendEmailAsync(user.Id, "Confirm your account", "Please confirm your account by clicking <a href=\"" + callbackUrl + "\">here</a>");
+
+
+                    CustomerRepository customerRepo = new CustomerRepository();
+                    Kunde newCustomer = new Kunde {
+                        KundenKeyGUID = new Guid(user.Id),
+                        Geburtsdatum = DateTime.Now,
+                        Vorname = "",
+                        Nachname = "",
+                        Strasse = "",
+                        Ort = "",
+                        PLZ = 0000,
+                        IstFilialvorstandsmitglied = false
+                    };
+                    customerRepo.Create(newCustomer);
 
                     return RedirectToAction("Index", "Home");
                 }

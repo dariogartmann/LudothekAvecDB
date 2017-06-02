@@ -33,8 +33,7 @@ namespace Ludothek.Storage.Repositories {
         {
             using(DbContext = new LudothekEntities())
             {
-                // todo fix
-                return Read(DbContext).ToList();
+                return Read(DbContext, g => g.IsAvailable).ToList();
             }
         }
 
@@ -64,6 +63,7 @@ namespace Ludothek.Storage.Repositories {
         {
             using (DbContext = new LudothekEntities())
             {
+                spiel.IsAvailable = true;
                 int affectedRows = Create(DbContext, spiel);
                 return affectedRows > 0;
             }

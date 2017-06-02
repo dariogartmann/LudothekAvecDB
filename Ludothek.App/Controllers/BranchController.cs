@@ -7,7 +7,7 @@ using Ludothek.Storage.Repositories;
 
 namespace Ludothek.App.Controllers
 {
-    public class BranchController : Base.SecureController
+    public class BranchController : Base.SecureBaseController
     {
         private readonly BranchRepository m_branchRepository;
         private readonly FederationRepository m_federationRepository;

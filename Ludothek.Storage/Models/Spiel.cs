@@ -29,6 +29,7 @@ namespace Ludothek.Storage.Models
         public System.Guid FK_Tarifkategorie { get; set; }
         public string Spielkategorie { get; set; }
         public System.Guid FK_Filiale { get; set; }
+        public bool IsAvailable { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Ausleihe> Ausleihe { get; set; }

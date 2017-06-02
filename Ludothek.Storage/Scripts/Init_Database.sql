@@ -70,6 +70,7 @@ CREATE TABLE dbo.Spiel
     FK_Tarifkategorie UNIQUEIDENTIFIER NOT NULL,
     Spielkategorie VARCHAR(255) NOT NULL CHECK (Spielkategorie IN('Kindergarten', 'Unterstufe', 'Oberstufe')),
     FK_Filiale UNIQUEIDENTIFIER NOT NULL, 
+	IsAvailable BIT NOT NULL DEFAULT 1,
 
     FOREIGN KEY (FK_Filiale) REFERENCES dbo.Filiale (FilialKeyGUID),
     FOREIGN KEY (FK_Tarifkategorie) REFERENCES dbo.Tarifkategorie (TarifkategorieKeyGUID));
