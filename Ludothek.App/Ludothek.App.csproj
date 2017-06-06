@@ -213,6 +213,7 @@
     <Compile Include="Startup.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Resources\Images\355838.png" />
     <Content Include="Resources\Styles\bootstrap-theme.css" />
     <Content Include="Resources\Styles\bootstrap-theme.min.css" />
     <Content Include="Resources\Styles\bootstrap.css" />

@@ -12,7 +12,7 @@
     @foreach (var game in Model.ToList()) {
         <div class="col-md-4">
             <div class="game">
-                <img src="https://unsplash.it/860/540/?random"/>
+                <img src="@($"/Resources/Images/{game.EANNummer}.png")" alt="@game.Name"/>
                 <div>
                     <h2>@game.Name</h2>
                     <span>EAN: @game.EANNummer</span>
