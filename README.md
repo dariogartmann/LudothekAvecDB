@@ -7,12 +7,13 @@ The goal is to implement a web-based "Ludothek". The database used in this proje
 - Clone solution
 - Connect to db: "(localdb)\MSSQLLocalDb"
 - Create database using the script "Init_Databse.sql"
-- Fill the database with dummy data: "Seed.sql"
+- Fill the database with dummy data (run script: "Seed.sql")
+- Open Solution
+- Run `Update-Database` in the PM-Console
 - Start Webapp
 
 ## ToDo
 - Documentation
-- Auth (Only admin can edit important stuff > Set role and add to auth attribute in SecureBaseController)
 - Prolonging Rentals
 
 ## German / English Mapping

@@ -12,6 +12,13 @@
             <ul class="dropdown-menu">
                 <li><a href="@Url.Action("Index", "Manage")">Manage @User.Identity.GetUserName()</a></li>
                 <li><a href="@Url.Action("Index", "Rental")">My Rentals</a></li>
+                @if (User.IsInRole("Admin"))
+                {
+                    <li role="separator" class="divider"></li>
+                    <li class="dropdown-header">Administration</li>
+                    <li><a href="@Url.Action("Index", "Game")">Manage Games</a></li>
+                    <li><a href="@Url.Action("Index", "Branch")">Manage Branches</a></li>
+                }
             </ul>
         </li>
         <li><a href="javascript:document.getElementById('logoutForm').submit()">Log off</a></li>

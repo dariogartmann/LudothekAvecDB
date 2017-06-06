@@ -2,7 +2,7 @@
 
 namespace Ludothek.App.Controllers.Base
 {
-    [Authorize]
+    [Authorize(Roles = "Admin")]
     public class SecureBaseController : BaseController {
     }
 }
