@@ -11,12 +11,16 @@
 <div class="row" id="allgames">
     @foreach (var game in Model.ToList()) {
         <div class="col-md-4">
-            <img src="https://unsplash.it/860/540/?random" />
-            <h2>@game.Name</h2>
-            <span>EAN: @game.EANNummer</span>
-            <hr/>
-            <a class="btn btn-primary pull-right" href="@Url.Action("New", "Rental", new {gameId = game.SpielKeyGUID})">Rent game!</a>
-            <div class="clearfix"></div>
+            <div class="game">
+                <img src="https://unsplash.it/860/540/?random"/>
+                <div>
+                    <h2>@game.Name</h2>
+                    <span>EAN: @game.EANNummer</span>
+                    <hr />
+                    <a class="btn btn-primary pull-right" href="@Url.Action("New", "Rental", new {gameId = game.SpielKeyGUID})">Rent game!</a>
+                    <div class="clearfix"></div>
+                </div>
+            </div>           
         </div>
     }
 

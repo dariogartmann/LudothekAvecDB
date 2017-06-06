@@ -24,5 +24,13 @@ textarea {
 }
 
 img {
-    max-width: 100%;
+    max-width: 100% !important;
+}
+
+.game {
+    margin-top: 30px;
+    background-color: #F9F9F9;
+}
+.game > div {
+    padding: 15px;
 }

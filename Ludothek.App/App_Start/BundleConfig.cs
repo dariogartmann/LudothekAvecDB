@@ -25,7 +25,7 @@ namespace Ludothek.App
 
             bundles.Add(new StyleBundle("~/Content/css").Include(
                       "~/Resources/Styles/bootstrap.css",
-                      "~/Resources/Styles/site.css"));
+                      "~/Resources/Styles/Site.css"));
         }
     }
 }
