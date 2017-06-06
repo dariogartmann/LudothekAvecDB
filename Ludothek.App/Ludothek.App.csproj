@@ -200,6 +200,10 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201706061226047_Initial.cs" />
+    <Compile Include="Migrations\201706061226047_Initial.Designer.cs">
+      <DependentUpon>201706061226047_Initial.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\IdentityModels.cs" />
@@ -298,6 +302,11 @@
       <Project>{37F98B99-1BB5-4C8A-9848-221AB13D5F28}</Project>
       <Name>Ludothek.Storage</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Migrations\201706061226047_Initial.resx">
+      <DependentUpon>201706061226047_Initial.cs</DependentUpon>
+    </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
