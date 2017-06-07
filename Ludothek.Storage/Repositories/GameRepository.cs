@@ -94,9 +94,9 @@ namespace Ludothek.Storage.Repositories {
         public bool Delete(Guid id)
         {
             var successful = false;
-            Spiel game = GetGame(id);
             using (DbContext = new LudothekEntities())
             {
+                Spiel game = DbContext.Spiel.FirstOrDefault(g => g.SpielKeyGUID == id);
                 if (game != null)
                 {
                     successful = Delete(DbContext, game) > 0;

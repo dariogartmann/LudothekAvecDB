@@ -50,8 +50,9 @@ namespace Ludothek.Storage.Repositories
         /// <returns>true if successful, otherwise false</returns>
         public bool Delete(Guid id) {
             var successful = false;
-            Filiale filiale = GetBranch(id);
-            using (DbContext = new LudothekEntities()) {
+            using (DbContext = new LudothekEntities())
+            {
+                Filiale filiale = DbContext.Filiale.FirstOrDefault(b => b.FilialKeyGUID == id);
                 if (filiale != null) {
                     successful = Delete(DbContext, filiale) > 0;
                 }
