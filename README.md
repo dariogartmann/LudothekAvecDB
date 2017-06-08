@@ -14,7 +14,7 @@ The goal is to implement a web-based "Ludothek". The database used in this proje
 
 ## ToDo
 - Documentation
-- Prolonging Rentals
+- Prolonging Rentals --> Done
 
 ## German / English Mapping
 
