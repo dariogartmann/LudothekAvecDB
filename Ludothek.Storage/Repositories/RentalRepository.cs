@@ -1,12 +1,13 @@
-﻿using Ludothek.Storage.Models;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
+using Ludothek.Storage.Models;
 
 namespace Ludothek.Storage.Repositories
 {
-    public class RentalRepository : RepositoryBase<Ausleihe> {
+    public class RentalRepository : RepositoryBase<Ausleihe>
+    {
 
         #region Get Methods
 
@@ -49,7 +50,7 @@ namespace Ludothek.Storage.Repositories
         /// <returns>list of rentals belonging to a customer</returns>
         public List<Ausleihe> GetRentalsForCustomer(Guid customerId, bool onlyActive = false)
         {
-            using(DbContext = new LudothekEntities())
+            using (DbContext = new LudothekEntities())
             {
                 if (onlyActive)
                 {
@@ -74,20 +75,26 @@ namespace Ludothek.Storage.Repositories
         /// <param name="customerId">id of customer who rents</param>
         /// <param name="gameId">id of the game to rent</param>
         /// <returns>true if successful, otherwise false</returns>
-        public bool AddRental(Guid customerId, Guid gameId) {
-            using (DbContext = new LudothekEntities()) {
-                using (var transaction = DbContext.Database.BeginTransaction()) {
+        public bool AddRental(Guid customerId, Guid gameId)
+        {
+            using (DbContext = new LudothekEntities())
+            {
+                using (var transaction = DbContext.Database.BeginTransaction())
+                {
 
-                    try {
+                    try
+                    {
                         Spiel game = DbContext.Spiel.FirstOrDefault(g => g.SpielKeyGUID == gameId);
                         Kunde customer = DbContext.Kunde.FirstOrDefault(c => c.KundenKeyGUID == customerId);
 
-                        if (game == null || !game.IsAvailable) {
+                        if (game == null || !game.IsAvailable)
+                        {
                             transaction.Dispose();
                             return false;
                         }
 
-                        Ausleihe rental = new Ausleihe {
+                        Ausleihe rental = new Ausleihe
+                        {
                             AusleiheKeyGUID = Guid.NewGuid(),
                             Startdatum = DateTime.Now,
                             Enddatum = DateTime.Now.AddDays(7),
@@ -117,10 +124,14 @@ namespace Ludothek.Storage.Repositories
         /// </summary>
         /// <param name="rentalId">id of rental to cancel</param>
         /// <returns>true if successful, otherwise false</returns>
-        public bool CancelRental(Guid rentalId) {
-            using (DbContext = new LudothekEntities()) {
-                using (var transaction = DbContext.Database.BeginTransaction()) {
-                    try {
+        public bool CancelRental(Guid rentalId)
+        {
+            using (DbContext = new LudothekEntities())
+            {
+                using (var transaction = DbContext.Database.BeginTransaction())
+                {
+                    try
+                    {
                         Ausleihe rental = DbContext.Ausleihe.FirstOrDefault(r => r.AusleiheKeyGUID == rentalId);
 
                         if (rental != null)
@@ -134,10 +145,12 @@ namespace Ludothek.Storage.Repositories
                             transaction.Commit();
                             return true;
                         }
-                    } catch (Exception e) {
+                    }
+                    catch (Exception e)
+                    {
                         transaction.Rollback();
                         return false;
-                    } 
+                    }
                 }
             }
             return false;
@@ -148,11 +161,37 @@ namespace Ludothek.Storage.Repositories
         /// </summary>
         /// <param name="rentalId">rental to prolong</param>
         /// <returns>true if successful</returns>
-        public bool ProlongRental(Guid rentalId) {
-            // todo add prolongCount flag to db and prolong 1 week, if possible! see other repo methods for help
-            throw new NotImplementedException();
+        public bool ProlongRental(Guid rentalId)
+        {
+            using (DbContext = new LudothekEntities())
+            {
+                using (var transaction = DbContext.Database.BeginTransaction())
+                {
+                    try
+                    {
+                        Ausleihe rental = DbContext.Ausleihe.FirstOrDefault(r => r.AusleiheKeyGUID == rentalId);
+
+                        if (rental != null)
+                        {
+                            rental.Enddatum = rental.Enddatum.AddDays(7);
+                            DbContext.Entry(rental.Spiel).State = EntityState.Modified;
+
+                            DbContext.SaveChanges();
+
+                            transaction.Commit();
+                            return true;
+                        }
+                    }
+                    catch (Exception e)
+                    {
+                        transaction.Rollback();
+                        return false;
+                    }
+                }
+            }
+            return false;
         }
-            
+
         #endregion
 
     }

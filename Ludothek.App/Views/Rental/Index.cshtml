@@ -17,7 +17,7 @@
                     <p><b>From: </b>@rental.Startdatum.ToString("dd. MMMM yyyy")</p>
                     <p><b>To: </b>@rental.Enddatum.ToString("dd. MMMM yyyy")</p>
                     <a class="btn btn-danger right" href="@Url.Action("Cancel", "Rental", new {rentalId = rental.AusleiheKeyGUID})">Cancel</a>
-                    <a href="#" class="btn btn-default right">Prolong</a>
+                    <a class="btn btn-default right" href="@Url.Action("Prolong", "Rental", new { rentalId = rental.AusleiheKeyGUID })">Prolong</a>
                     <div class="clearfix"></div>
                     <hr/>
                 </div>
