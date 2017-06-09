@@ -13,7 +13,7 @@ The goal is to implement a web-based "Ludothek". The database used in this proje
 - Start Webapp
 
 ## ToDo
-- Documentation
+- Documentation --> Done
 - Prolonging Rentals --> Done
 
 ## German / English Mapping
